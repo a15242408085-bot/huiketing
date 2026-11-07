@@ -1,0 +1,97 @@
+/*
+ * Visual reference: https://github.com/danielstuart14/CSS_FOG_ANIMATION
+ * Checked 2026-11-07. README says "Feel free to use it on your website."
+ * No standard LICENSE file was listed in the repository root at the time checked.
+ * This implementation independently uses CSS radial gradients and transform-only
+ * motion. No repository CSS, HTML, fog textures, or background image is copied.
+ * Bamboo image: supplied by the user; assets/bamboo-real.png is a byte-identical copy.
+ */
+@media screen {
+  .hk-home-stage-background > .hk-bamboo-fog {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    overflow: hidden;
+    pointer-events: none;
+    user-select: none;
+    contain: paint;
+  }
+  .hk-bamboo-fog,
+  .hk-bamboo-fog * { pointer-events: none; }
+  .hk-bamboo-fog__bamboo {
+    position: absolute;
+    z-index: 2;
+    top: clamp(-62px, -4vw, -20px);
+    left: clamp(-118px, -6.2vw, -28px);
+    display: block;
+    width: clamp(590px, 69vw, 1160px);
+    height: auto;
+    max-width: none;
+    opacity: .94;
+    object-fit: contain;
+    object-position: left top;
+  }
+  .hk-bamboo-fog__bamboo[hidden] { display: none; }
+  .hk-bamboo-fog__mist {
+    position: absolute;
+    inset: -12% -28%;
+    z-index: 1;
+    transform: translate3d(0, 0, 0);
+    animation-play-state: running;
+  }
+  .hk-bamboo-fog__mist--far {
+    opacity: .29;
+    background:
+      radial-gradient(ellipse 31% 12% at 15% 41%, rgb(251 253 243 / 82%), transparent 76%),
+      radial-gradient(ellipse 37% 15% at 52% 49%, rgb(255 254 246 / 76%), transparent 78%),
+      radial-gradient(ellipse 26% 11% at 85% 35%, rgb(247 250 240 / 72%), transparent 77%),
+      radial-gradient(ellipse 42% 19% at 69% 80%, rgb(255 254 247 / 64%), transparent 80%);
+    animation: hkBambooFogFar 91s ease-in-out -29s infinite alternate;
+  }
+  .hk-bamboo-fog__mist--near {
+    opacity: .25;
+    background:
+      radial-gradient(ellipse 34% 16% at 25% 72%, rgb(255 254 248 / 88%), transparent 78%),
+      radial-gradient(ellipse 42% 14% at 67% 65%, rgb(255 254 247 / 78%), transparent 79%),
+      radial-gradient(ellipse 27% 12% at 93% 84%, rgb(248 251 240 / 72%), transparent 80%);
+    animation: hkBambooFogNear 67s ease-in-out -17s infinite alternate;
+  }
+  .hk-bamboo-fog[data-hk-motion="paused"] .hk-bamboo-fog__mist {
+    animation-play-state: paused;
+  }
+  @keyframes hkBambooFogFar {
+    from { transform: translate3d(-5%, -1%, 0); }
+    to { transform: translate3d(6%, 1.5%, 0); }
+  }
+  @keyframes hkBambooFogNear {
+    from { transform: translate3d(7%, 1%, 0); }
+    to { transform: translate3d(-6%, -1.5%, 0); }
+  }
+}
+@media screen and (max-width: 860px) {
+  .hk-bamboo-fog__bamboo {
+    top: -32px;
+    left: -64px;
+    width: clamp(430px, 85vw, 690px);
+    opacity: .61;
+  }
+  .hk-bamboo-fog__mist--far { opacity: .2; }
+  .hk-bamboo-fog__mist--near { opacity: .16; }
+}
+@media screen and (max-width: 480px) {
+  .hk-bamboo-fog__bamboo {
+    top: -19px;
+    left: -53px;
+    width: 430px;
+    opacity: .49;
+  }
+}
+@media screen and (prefers-reduced-motion: reduce) {
+  .hk-bamboo-fog__mist {
+    animation: none;
+    transform: none;
+  }
+}
+@media print {
+  .hk-bamboo-fog { display: none !important; }
+}

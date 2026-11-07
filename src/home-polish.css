@@ -1,0 +1,63 @@
+/* Homepage only. Card art/layout remains owned by entry-art.css. */
+@media screen {
+  .cover-page[data-hk-home-polish="landing-v1"] .hk-home-story__credit,
+  .cover-page[data-hk-home-polish="landing-v1"] .entry-choice__heading > .small-caps {
+    display:none;
+  }
+
+  .cover-page[data-hk-home-polish="landing-v1"] .cover-hero__brand h1 {
+    font-size:clamp(88px,10vw,145px);
+    line-height:1.08;
+    letter-spacing:.02em;
+    white-space:nowrap;
+  }
+  .cover-page[data-hk-home-polish="landing-v1"] .cover-hero__brand h1 > br { display:none; }
+  .cover-page[data-hk-home-polish="landing-v1"] .cover-hero__brand h1 > em {
+    display:inline;
+    font-size:inherit;
+    line-height:inherit;
+    letter-spacing:inherit;
+  }
+
+  .cover-page[data-hk-home-polish="landing-v1"] .cover-hero__proof {
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px;
+    padding-top:0;
+    border-top:0;
+    color:#21484b;
+    font-family:var(--sans, sans-serif);
+    font-size:14px;
+    font-weight:500;
+    line-height:1.4;
+    letter-spacing:0;
+    font-variant-numeric:tabular-nums;
+  }
+  .cover-page[data-hk-home-polish="landing-v1"] .cover-hero__proof > span {
+    display:inline-flex;
+    align-items:center;
+    padding:8px 12px;
+    border:1px solid rgb(125 157 151 / 28%);
+    border-radius:14px 6px 14px 6px;
+    background:rgb(209 225 218 / 56%);
+    backdrop-filter:blur(9px);
+    -webkit-backdrop-filter:blur(9px);
+    white-space:nowrap;
+  }
+  .cover-page[data-hk-home-polish="landing-v1"] .cover-hero__proof > span:nth-child(2) {
+    border-color:rgb(210 204 177 / 32%);
+    background:rgb(247 241 221 / 62%);
+  }
+}
+
+@media screen and (max-width:860px) {
+  .cover-page[data-hk-home-polish="landing-v1"] .cover-hero__brand h1 {
+    font-size:clamp(78px,23vw,100px);
+  }
+}
+
+@media screen and (max-width:420px) {
+  .cover-page[data-hk-home-polish="landing-v1"] .cover-hero__proof { gap:6px; font-size:13px; }
+  .cover-page[data-hk-home-polish="landing-v1"] .cover-hero__proof > span { padding:6px 8px; }
+}

@@ -1,0 +1,366 @@
+{
+  "notice": "按用户提供五张详情页设计参考实现。环境与平面图为 AI 示意，非实地采集或实际测绘；状态为演示示例。",
+  "shops": {
+    "qiaoxi-tea": {
+      "name": "桥西茶寮",
+      "number": "001",
+      "headline": "来桥西，先坐一歇。",
+      "tagline": "一盏茶，一段水乡时光。",
+      "englishName": "QIAOXI CHALIAO",
+      "bannerCrop": {
+        "x": 598,
+        "y": 288,
+        "w": 1160,
+        "h": 343,
+        "sourceW": 2560,
+        "sourceH": 1440
+      },
+      "planCrop": {
+        "x": 595,
+        "y": 1004,
+        "w": 843,
+        "h": 346,
+        "sourceW": 2560,
+        "sourceH": 1440
+      },
+      "planTitle": "进门之后，坐在哪里？",
+      "features": [
+        {
+          "icon": "tea",
+          "title": "喝一杯，坐一歇",
+          "text": "云溪烘青 18 元/杯，清香偏甜，可续一次热水。\n桂花米浆 12 元/碗。",
+          "note": "茶点三拼 22 元，今日售罄。"
+        },
+        {
+          "icon": "chair",
+          "title": "一个人，也有位置",
+          "text": "先找座，再到吧台点单付款；六个单人吧台位，两张靠窗小桌。\n一杯茶通常约 90 分钟，高峰以现场为准。",
+          "note": ""
+        },
+        {
+          "icon": "sign",
+          "title": "桥西的一块旧茶匾",
+          "text": "沈岚把外婆的旧茶匾挂在吧台后。\n不设茶艺表演，让走累的人真正坐一歇。",
+          "note": ""
+        }
+      ],
+      "status": [
+        {
+          "icon": "tea",
+          "title": "营业中",
+          "text": "欢迎来坐一歇。",
+          "alert": false
+        },
+        {
+          "icon": "people",
+          "title": "余位较少",
+          "text": "",
+          "alert": false
+        },
+        {
+          "icon": "dish",
+          "title": "茶点三拼售罄",
+          "text": "可选择其他茶点。",
+          "alert": false
+        }
+      ],
+      "legend": [
+        "Wi-Fi / 插座规则未确认，勿按办公位安排。",
+        "店内无顾客洗手间，桥东游客服务点旁约 3 分钟。",
+        "具体位置以现场为准。"
+      ],
+      "asset": "assets/room-references/qiaoxi-tea.png",
+      "source_label": "用户提供的 AI 设计参考图",
+      "status_note": "状态示例 · 非实时，以店铺当天说明为准。",
+      "banner_caption": "AI 示意影像 · 非实地采集",
+      "statusUpdatedAt": "今天 14:10 更新 · 演示"
+    },
+    "ayuan-noodles": {
+      "name": "阿沅面馆",
+      "number": "002",
+      "headline": "只做三碗面，先吃一碗热的。",
+      "tagline": "一碗热汤，河埠头的日常。",
+      "bannerCrop": {
+        "x": 598,
+        "y": 274,
+        "w": 1166,
+        "h": 335,
+        "sourceW": 2560,
+        "sourceH": 1440
+      },
+      "planCrop": {
+        "x": 595,
+        "y": 971,
+        "w": 825,
+        "h": 386,
+        "sourceW": 2560,
+        "sourceH": 1440
+      },
+      "planTitle": "进门之后，怎么安排？",
+      "features": [
+        {
+          "icon": "bowl",
+          "title": "先尝笋干汤",
+          "text": "笋干肉丝面 22 元；小份加荷包蛋 25 元，减面不减招牌配料。\n雪菜肉丝面 20 元。",
+          "note": "酱鸭面 28 元，今日售罄。"
+        },
+        {
+          "icon": "book",
+          "title": "先点面，再等叫号",
+          "text": "看黑板，前台付款领号码牌，再找座。\n左边沿窗六个单人位，不用面对面拼桌。",
+          "note": ""
+        },
+        {
+          "icon": "mountain",
+          "title": "五点半开始的一锅汤",
+          "text": "阿沅每天五点半熬笋干汤，只留三款面。\n河埠头的日常，是一碗趁热吃的汤面。",
+          "note": ""
+        }
+      ],
+      "status": [
+        {
+          "icon": "shop",
+          "title": "营业中",
+          "text": "",
+          "alert": false
+        },
+        {
+          "icon": "people",
+          "title": "午市满座",
+          "text": "",
+          "alert": false
+        },
+        {
+          "icon": "bowl",
+          "title": "酱鸭面售罄",
+          "text": "",
+          "alert": false
+        }
+      ],
+      "legend": [
+        "虚线箭头为顾客动线，餐桌椅仅作示意。",
+        "厨房区域不对顾客开放。",
+        "公共插座位不保证可用，勿长时间占位充电。",
+        "店内无顾客洗手间，河埠头北侧公共点约 2 分钟。",
+        "不提供行李寄存。"
+      ],
+      "asset": "assets/room-references/ayuan-noodles.png",
+      "source_label": "用户提供的 AI 设计参考图",
+      "status_note": "状态示例 · 非实时，以店铺当天说明为准。",
+      "banner_caption": "AI 示意影像 · 非实地采集",
+      "statusUpdatedAt": "今天 14:10 更新 · 演示"
+    },
+    "nanzha-bamboo": {
+      "name": "南栅竹编所",
+      "number": "003",
+      "headline": "先看手怎么动，再决定带什么走。",
+      "tagline": "周守义与周禾 · 父女手艺人\n四十余年竹编",
+      "englishName": "NANZHAI BAMBOO WEAVING",
+      "bannerCrop": {
+        "x": 580,
+        "y": 298,
+        "w": 1253,
+        "h": 343,
+        "sourceW": 2560,
+        "sourceH": 1440
+      },
+      "planCrop": {
+        "x": 581,
+        "y": 998,
+        "w": 943,
+        "h": 389,
+        "sourceW": 2560,
+        "sourceH": 1440
+      },
+      "planTitle": "进院之后，在哪里看？",
+      "features": [
+        {
+          "icon": "basket",
+          "title": "带走一件能用的小物",
+          "text": "竹编杯垫 18 元，手掌竹篮 86 元，可以纳钥匙或小水果。\n提梁茶篮 260 元，库存以现场为准。",
+          "note": ""
+        },
+        {
+          "icon": "people",
+          "title": "先招呼，再看手怎么动",
+          "text": "通常参观 15—20 分钟，不需要购买。\n先问再拍；勿碰刀具、竹丝与半成品。院内长凳仅短暂休息。",
+          "note": ""
+        },
+        {
+          "icon": "tools",
+          "title": "修旧篮，也做新篮",
+          "text": "父亲修镇上人的旧篮，女儿写器物用途纸签。\n没有定时表演；修补现场看破损估价，不承诺工期。",
+          "note": ""
+        }
+      ],
+      "status": [
+        {
+          "icon": "shop",
+          "title": "营业中",
+          "text": "",
+          "alert": false
+        },
+        {
+          "icon": "people",
+          "title": "无需排队",
+          "text": "",
+          "alert": false
+        },
+        {
+          "icon": "basket",
+          "title": "杯垫有货",
+          "text": "",
+          "alert": false
+        }
+      ],
+      "legend": [
+        "绿色虚线为参观动线；可观看边界请勿进入。",
+        "红色虚线为禁触区域，竹丝、刀具请勿碰触。",
+        "插座及洗手间资料未确认，参观前询问。",
+        "宠物规则需确认。"
+      ],
+      "asset": "assets/room-references/nanzha-bamboo.png",
+      "source_label": "用户提供的 AI 设计参考图",
+      "status_note": "状态示例 · 非实时，以店铺当天说明为准。",
+      "banner_caption": "AI 示意影像 · 非实地采集",
+      "statusUpdatedAt": "今天 14:10 更新 · 演示"
+    },
+    "banshan-tofu": {
+      "name": "半山豆腐坊",
+      "number": "004",
+      "headline": "下次来，先吃一口热的。",
+      "tagline": "一锅豆花，半山烟火。",
+      "englishName": "BANSHAN TOUFUFANG",
+      "bannerCrop": {
+        "x": 596,
+        "y": 270,
+        "w": 1171,
+        "h": 338,
+        "sourceW": 2560,
+        "sourceH": 1440
+      },
+      "planCrop": {
+        "x": 598,
+        "y": 1009,
+        "w": 849,
+        "h": 335,
+        "sourceW": 2560,
+        "sourceH": 1440
+      },
+      "planTitle": "进门之后，怎么坐？",
+      "features": [
+        {
+          "icon": "bowl",
+          "title": "一碗豆花，一碗热豆浆",
+          "text": "咸豆花 8 元 + 无糖热豆浆 5 元，共 13 元。15 元套餐含豆花、豆浆与米糕；香煎豆腐 12 元通常 10:30 后供应。",
+          "note": "常设菜单供下次参考，今日售罄。"
+        },
+        {
+          "icon": "chair",
+          "title": "点单领牌，再找小桌",
+          "text": "柜台付款，拿木牌找座，等叫号。\n进门左边四张小桌，一人靠墙坐，不用拼桌。\n不要虾皮和葱请提前说。\n不能保证完全无过敏交叉接触，严重过敏请现场确认。",
+          "note": ""
+        },
+        {
+          "icon": "mountain",
+          "title": "石阶早市的一锅豆花",
+          "text": "郑阿满四点半泡豆，用盐卤慢慢点。\n一锅卖完就翻收牌，不做全天供应。",
+          "note": ""
+        }
+      ],
+      "status": [
+        {
+          "icon": "sign",
+          "title": "今日已收门",
+          "text": "今日售罄",
+          "alert": true
+        }
+      ],
+      "legend": [
+        "虚线箭头为通行方向，红线为工作区边界。",
+        "热锅与端碗通道勿停留。",
+        "店内无顾客洗手间，石阶路入口游客服务点旁有公共点位。",
+        "插座、儿童椅及打包规则未确认，勿默认提供。"
+      ],
+      "asset": "assets/room-references/banshan-tofu.png",
+      "source_label": "用户提供的 AI 设计参考图",
+      "status_note": "状态示例 · 非实时，以店铺当天说明为准。",
+      "banner_caption": "AI 示意影像 · 非实地采集",
+      "statusUpdatedAt": "今天 14:10 更新 · 演示"
+    },
+    "songfeng-tea": {
+      "name": "松风茶屋",
+      "number": "005",
+      "headline": "来松风，可以先知道这些。",
+      "tagline": "窗外有松，桌上有旧书。",
+      "bannerCrop": {
+        "x": 596,
+        "y": 273,
+        "w": 1159,
+        "h": 286,
+        "sourceW": 2560,
+        "sourceH": 1440
+      },
+      "planCrop": {
+        "x": 598,
+        "y": 956,
+        "w": 844,
+        "h": 396,
+        "sourceW": 2560,
+        "sourceH": 1440
+      },
+      "planTitle": "进门之后，坐在哪里？",
+      "features": [
+        {
+          "icon": "tea",
+          "title": "先点一杯石岙山茶",
+          "text": "20 元/杯，焙火轻，可续一次水。",
+          "note": "炒米糖 10 元，含花生，今日售罄；含炒米糖套餐供应需现场确认。"
+        },
+        {
+          "icon": "book",
+          "title": "一本旧书，一段安静时间",
+          "text": "四张小桌可独坐，不主动拼桌。\n一杯茶通常约 75 分钟，高峰体谅等位客人。门口茶牌选茶，柜台付款，茶送到座位。旧书读后放回，不带走。",
+          "note": ""
+        },
+        {
+          "icon": "mountain",
+          "title": "石阶尽头的松风与书声",
+          "text": "苏敏把父亲的旧书架搬到窗边。\n一张长桌、四张小桌，不设茶艺表演。石阶、松针与翻书声，是这里的日常。",
+          "note": ""
+        }
+      ],
+      "status": [
+        {
+          "icon": "shop",
+          "title": "营业中",
+          "text": "",
+          "alert": false
+        },
+        {
+          "icon": "people",
+          "title": "靠窗位已满",
+          "text": "",
+          "alert": false
+        },
+        {
+          "icon": "box",
+          "title": "炒米糖售罄",
+          "text": "",
+          "alert": false
+        }
+      ],
+      "legend": [
+        "今日信息示例：靠窗位已满。",
+        "Wi-Fi、插座及电脑规则未确认，勿按办公或充电位安排。",
+        "店内无顾客洗手间，镇口游客服务点有公共洗手间。",
+        "此平面图为设计示意，不精确测绘。"
+      ],
+      "asset": "assets/room-references/songfeng-tea.png",
+      "source_label": "用户提供的 AI 设计参考图",
+      "status_note": "状态示例 · 非实时，以店铺当天说明为准。",
+      "banner_caption": "AI 示意影像 · 非实地采集",
+      "statusUpdatedAt": "今天 14:10 更新 · 演示"
+    }
+  }
+}

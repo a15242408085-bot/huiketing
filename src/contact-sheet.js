@@ -6,22 +6,19 @@
     const media = matchMedia('(prefers-reduced-motion: reduce)');
     const panel = document.createElement('section');
     panel.className = 'hk-contact-sheet';
-    panel.setAttribute('aria-label', '空间生成示意图展示');
+    panel.setAttribute('aria-label', '地方风景影像');
     const toolbar = document.createElement('div');
     toolbar.className = 'hk-contact-sheet__toolbar';
-    const label = document.createElement('span'); label.textContent = '空间示意 · 08';
     const pause = document.createElement('button');
     pause.type = 'button'; pause.className = 'hk-contact-sheet__pause';
     const field = document.createElement('div'); field.className = 'hk-contact-sheet__field';
-    const note = document.createElement('p'); note.className = 'hk-contact-sheet__note';
-    note.textContent = '生成图示意 · 点击查看';
-    toolbar.append(label, pause); panel.append(toolbar, field, note);
+    toolbar.append(pause); panel.append(field, toolbar);
     const steps = intro.querySelector('.journey-steps');
     intro.insertBefore(panel, steps); intro.classList.add('hk-with-contact-sheet');
     let paused = false, hovered = -1, opened = false, disposed = false, inView = true, frame = 0, last = 0, clock = 0;
     let returnFocus = null;
     const dialog = document.createElement('dialog'); dialog.className = 'hk-photo-dialog';
-    dialog.setAttribute('aria-label', '空间示意图预览');
+    dialog.setAttribute('aria-label', '地方风景照片预览');
     const close = document.createElement('button'); close.type = 'button';
     close.className = 'hk-photo-dialog__close'; close.textContent = '关闭照片';
     const figure = document.createElement('figure'), large = document.createElement('img');
@@ -41,14 +38,17 @@
       button.addEventListener('click', function () {
         returnFocus = button; opened = true; large.src = item.src; large.alt = item.alt || item.title;
         caption.textContent = item.title;
-        credit.textContent = 'AI 生成示意图，不代表真实店铺或海岸实景。' + (item.photographer ? '摄影 / 来源：' + item.photographer : '');
+        credit.textContent = '景点影像参考，不代表演示店铺实景。' + (item.photographer ? '摄影 / 来源：' + item.photographer : '');
         if (dialog.showModal) dialog.showModal(); else dialog.setAttribute('open', '');
         close.focus(); syncAnimation();
       });
       return card;
     });
     function updatePause() {
-      pause.textContent = paused ? '播放影像' : '暂停影像'; pause.setAttribute('aria-pressed', String(paused));
+      pause.textContent = paused ? '播放' : '暂停';
+      pause.setAttribute('aria-label', paused ? '播放背景影像' : '暂停背景影像');
+      pause.setAttribute('aria-pressed', String(paused));
+      pause.hidden = media.matches;
       panel.dataset.paused = String(paused || media.matches);
     }
     function render() {
@@ -56,15 +56,15 @@
       cards.forEach(function (card, i) {
         const p = card.progress, focus = hovered === i;
         const travel = .18 + 1.10 * Math.pow(p, 1.18);
-        const cardWidth = Math.min(156, width * .27) * (.54 + p * .92);
-        const cardHeight = cardWidth / 1.28;
+        const cardWidth = Math.min(190, width * .34) * (.70 + p * .66);
+        const cardHeight = cardWidth / 1.38;
         const x = card.direction[0] * width * .49 * travel;
         const y = card.direction[1] * height * .50 * travel;
         const opacity = focus ? 1 : Math.min(1, p / .14, (1.05 - p) / .15);
         card.button.style.width = cardWidth.toFixed(1) + 'px'; card.button.style.height = cardHeight.toFixed(1) + 'px';
         card.button.style.opacity = Math.max(.08, opacity).toFixed(3);
-        card.button.style.zIndex = String(Math.round(p * 20));
-        card.button.style.transform = 'translate(-50%,-50%) translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) rotate(' + ((i % 3 - 1) * 4).toFixed(1) + 'deg) scale(' + (focus ? 1.08 : 1) + ')';
+        card.button.style.zIndex = String(focus ? 24 : Math.round(p * 20));
+        card.button.style.transform = 'translate(-50%,-50%) translate(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px) rotate(' + ((i % 3 - 1) * 2.5).toFixed(1) + 'deg) scale(' + (focus ? 1.04 : 1) + ')';
         card.button.style.filter = p < .25 ? 'saturate(' + (.25 + p * 3).toFixed(2) + ')' : '';
       });
     }
@@ -76,7 +76,7 @@
       if (!paused && !media.matches && !document.hidden && !opened && inView) {
         clock += delta;
         if (clock > 40) {
-          const amount = clock * .000020 * (hovered >= 0 ? .40 : 1); clock = 0;
+          const amount = clock * .000012 * (hovered >= 0 ? .40 : 1); clock = 0;
           cards.forEach(function (card, i) { if (hovered !== i) card.progress = (card.progress + amount) % 1; });
           render();
         }
@@ -86,7 +86,7 @@
     function shouldAnimate() { return !disposed && !paused && !media.matches && !document.hidden && !opened && inView; }
     function syncAnimation() { cancelAnimationFrame(frame); frame = 0; last = 0; if (shouldAnimate()) frame = requestAnimationFrame(tick); }
     function closeDialog() { if (dialog.open && dialog.close) dialog.close(); else { dialog.removeAttribute('open'); afterClose(); } }
-    function afterClose() { opened = false; large.removeAttribute('src'); if (returnFocus && returnFocus.isConnected) returnFocus.focus(); syncAnimation(); }
+    function afterClose() { opened = false; large.removeAttribute('src'); if (!disposed && returnFocus && returnFocus.isConnected) returnFocus.focus({preventScroll:true}); syncAnimation(); }
     close.addEventListener('click', closeDialog); dialog.addEventListener('close', afterClose);
     dialog.addEventListener('click', function (event) { if (event.target === dialog) closeDialog(); });
     pause.addEventListener('click', function () { paused = !paused; updatePause(); syncAnimation(); });

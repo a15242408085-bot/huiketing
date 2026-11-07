@@ -1,0 +1,209 @@
+/* Independent question-planning panel; all original town and scenario nodes remain. */
+.hk-today-planner {
+  --today-primary: var(--rust, #173f44);
+  --today-ink: var(--brand-ink, #123d43);
+  --today-paper: var(--paper, #fbfbf8);
+  --today-line: var(--line-dark, #cad2d0);
+  --today-muted: #5c6b6a;
+  --today-selection: #a93229;
+  display: grid;
+  grid-template-columns: minmax(0, .32fr) minmax(0, .68fr);
+  column-gap: clamp(28px, 4.2vw, 68px);
+  row-gap: 26px;
+  width: 100%;
+  margin: 50px 0 66px;
+  padding: 34px 0 24px;
+  border-top: 1px solid var(--today-line);
+  border-bottom: 1px solid var(--today-line);
+  color: var(--today-ink);
+  background: var(--today-paper);
+  font-family: var(--sans, sans-serif);
+  font-size: 13px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+  scroll-margin-top: 24px;
+}
+.hk-today-planner *, .hk-today-planner *::before, .hk-today-planner *::after { box-sizing: border-box; }
+.hk-today-planner [hidden] { display: none !important; }
+.hk-today-planner :is(p, h2, h3, fieldset, legend) { margin: 0; }
+.hk-today-planner :is(button, input, select, textarea, summary) { font: inherit; }
+.hk-today-planner :is(button, input, select, textarea) { border-radius: 0; box-shadow: none; }
+.hk-today-planner button { cursor: pointer; }
+.hk-today-planner button:disabled { cursor: default; }
+.hk-today-planner :is(button, input, select, textarea, summary):focus-visible {
+  outline: 2px solid var(--today-primary);
+  outline-offset: 3px;
+}
+.hk-today-planner__conditions, .hk-today-planner__choices { min-width: 0; }
+.hk-today-planner__eyebrow {
+  color: var(--today-muted);
+  font-family: var(--mono, monospace);
+  font-size: 11px;
+  letter-spacing: .16em;
+}
+.hk-today-planner .hk-today-planner__title {
+  margin-top: 13px;
+  color: var(--today-ink);
+  font-family: var(--serif, serif);
+  font-size: clamp(27px, 2.8vw, 40px);
+  font-weight: 500;
+  line-height: 1.28;
+  letter-spacing: -.035em;
+}
+.hk-today-planner .hk-today-planner__intro { margin-top: 14px; color: var(--today-muted); font-size: 13px; }
+.hk-today-planner__weather { margin-top: 24px; padding: 15px 17px 8px; border: 1px solid var(--today-line); background: #fff; }
+.hk-today-planner__weather-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 5px 12px; font-size: 12px; }
+.hk-today-planner__demo { color: var(--today-muted); font-size: 11px; }
+.hk-today-planner__weather-main { display: flex; align-items: center; gap: 14px; margin: 16px 0 9px; }
+.hk-today-planner__weather-main svg { width: 33px; height: 33px; flex-shrink: 0; }
+.hk-today-planner__weather-main strong { font-family: var(--serif, serif); font-size: 29px; font-weight: 500; line-height: 1; }
+.hk-today-planner__weather-main > span { font-size: 13px; }
+.hk-today-planner__weather > p { color: var(--today-muted); font-size: 11px; line-height: 1.65; }
+.hk-today-planner__weather-switch { display: flex; align-items: center; gap: 9px; min-height: 44px; margin-top: 3px; cursor: pointer; font-size: 12px; }
+.hk-today-planner__weather-switch input { width: 17px; height: 17px; margin: 0; accent-color: var(--today-primary); }
+.hk-today-planner__field { min-width: 0; margin-top: 24px !important; padding: 0; border: 0; }
+.hk-today-planner__field legend { margin-bottom: 11px; font-size: 13px; font-weight: 600; }
+.hk-today-planner__options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
+.hk-today-planner__option {
+  position: relative;
+  min-height: 44px;
+  padding: 9px 4px;
+  border: 1px solid var(--today-line);
+  color: var(--today-ink);
+  background: transparent;
+  font-size: 12px !important;
+  text-align: center;
+  line-height: 1.5;
+}
+.hk-today-planner__option:hover { border-color: var(--today-primary); background: #eef3f1; }
+.hk-today-planner__option[aria-pressed="true"] { border-color: var(--today-selection); color: #8e2922; background: #faf6f2; }
+.hk-today-planner__option[aria-pressed="true"]::before { content: '✓'; display: block; position: absolute; top: 1px; left: 4px; font-size: 11px; line-height: 1; }
+.hk-today-planner__extras { margin-top: 22px; border-bottom: 1px solid var(--today-line); }
+.hk-today-planner__extras > summary { min-height: 44px; padding: 9px 0; cursor: pointer; color: var(--today-primary); font-size: 12px; }
+.hk-today-planner__extra-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding-top: 10px; }
+.hk-today-planner__extra-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; font-size: 12px; }
+.hk-today-planner :is(.hk-today-planner__extra-field input, .hk-today-planner__extra-field select, .hk-today-planner__shop select) {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 9px 8px;
+  border: 1px solid var(--today-line);
+  color: var(--today-ink);
+  background-color: #fff;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.hk-today-planner input::placeholder, .hk-today-planner textarea::placeholder { color: #6b7774; opacity: 1; }
+.hk-today-planner .hk-today-planner__privacy { margin: 10px 0 15px; color: var(--today-muted); font-size: 11px; }
+.hk-today-planner__left-actions { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 12px; margin-top: 9px; }
+.hk-today-planner__text-button {
+  min-height: 44px;
+  padding: 8px 0;
+  border: 0;
+  color: var(--today-primary);
+  background: none;
+  font-size: 12px !important;
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-color: #9dadaa;
+  text-underline-offset: 4px;
+}
+.hk-today-planner__text-button:hover { text-decoration-color: var(--today-primary); }
+.hk-today-planner__text-button:disabled { color: #73817c; text-decoration: none; opacity: .7; }
+.hk-today-planner__choices-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; min-height: 64px; }
+.hk-today-planner__choices-head h3 { font-family: var(--serif, serif); font-size: clamp(22px, 2vw, 28px); font-weight: 500; line-height: 1.3; color: var(--today-ink); }
+.hk-today-planner__choices-head p { margin-top: 6px; color: var(--today-muted); font-size: 12px; }
+.hk-today-planner__choices-head > button { flex-shrink: 0; padding-top: 1px; min-height: 44px; }
+.hk-today-planner .hk-today-planner__list-status { min-height: 31px; margin: 7px 0 12px; color: var(--today-muted); font-size: 11px; }
+.hk-today-planner__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.hk-today-card {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  width: 100%;
+  min-width: 0;
+  min-height: 188px;
+  padding: 15px 16px 13px;
+  border: 1px solid var(--today-line);
+  color: var(--today-ink);
+  background: #fff;
+  text-align: left;
+  transition: border-color .15s ease, background-color .15s ease;
+}
+.hk-today-card:hover { border-color: #6f8985; background: #fafbf8; }
+.hk-today-card[aria-pressed="true"] { border-color: var(--today-selection); box-shadow: inset 3px 0 0 var(--today-selection); }
+.hk-today-card__top { display: flex; justify-content: space-between; align-items: flex-start; gap: 7px; min-height: 19px; }
+.hk-today-card__index { color: var(--today-muted); font-family: var(--mono, monospace); font-size: 11px; line-height: 1.5; }
+.hk-today-card__badge { flex-shrink: 0; padding: 1px 5px; background: var(--today-primary); color: #fbfbf8; font-size: 11px; line-height: 1.7; }
+.hk-today-card__body { display: flex; gap: 13px; align-items: flex-start; }
+.hk-today-card__body > svg { flex: 0 0 27px; width: 27px; height: 27px; margin-top: 2px; }
+.hk-today-card__copy { display: flex; min-width: 0; flex-direction: column; gap: 9px; }
+.hk-today-card__title { font-family: var(--serif, serif); font-size: clamp(16px, 1.45vw, 20px); font-weight: 500; line-height: 1.5; }
+.hk-today-card__question { color: var(--today-muted); font-size: 12px; line-height: 1.75; }
+.hk-today-card__reason { display: block; width: 100%; margin-top: auto; padding-top: 10px; border-top: 1px solid #e6e9e6; color: var(--today-muted); font-size: 11px; line-height: 1.7; }
+.hk-today-planner .hk-today-planner__under-grid { margin-top: 11px; color: var(--today-muted); font-size: 11px; }
+.hk-today-planner__draft { margin-top: 20px; padding: 16px 18px 12px; border: 1px solid var(--today-line); background: #fff; }
+.hk-today-planner__draft-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px 16px; }
+.hk-today-planner__draft-head > label { font-family: var(--serif, serif); font-size: 21px; line-height: 1.5; }
+.hk-today-planner .hk-today-planner__draft-input { display: block; width: 100%; min-height: 96px; margin-top: 10px; padding: 11px 12px; resize: vertical; border: 1px solid var(--today-line); color: var(--today-ink); background: var(--today-paper); font-family: var(--sans, sans-serif); font-size: 13px; line-height: 1.85; }
+.hk-today-planner .hk-today-planner__draft-note { margin-top: 8px; color: var(--today-muted); font-size: 11px; }
+.hk-today-planner__draft-actions { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px; align-items: end; margin-top: 15px; }
+.hk-today-planner__shop { display: flex; flex-direction: column; gap: 5px; color: var(--today-muted); font-size: 11px; }
+.hk-today-planner__ask { min-height: 44px; padding: 10px 17px; border: 1px solid var(--today-primary); color: #fbfbf8; background: var(--today-primary); font-size: 13px !important; line-height: 1.7; }
+.hk-today-planner__ask:hover:not(:disabled) { background: var(--brand-hover, #24565a); }
+.hk-today-planner__ask:disabled { color: #6a7874; background: #e6ece8; border-color: #d3dcd7; }
+.hk-today-planner .hk-today-planner__draft-status { min-height: 20px; margin-top: 10px; color: var(--today-muted); font-size: 11px; }
+.hk-today-planner .hk-today-planner__foot { grid-column: 1 / -1; margin-top: 2px; padding-top: 14px; border-top: 1px solid var(--today-line); color: var(--today-muted); font-size: 11px; }
+@media (min-width: 1440px) {
+  .hk-today-card { min-height: 192px; padding: 18px 20px 14px; }
+}
+@media (max-width: 1100px) {
+  .hk-today-planner { grid-template-columns: minmax(0, .34fr) minmax(0, .66fr); column-gap: 26px; }
+  .hk-today-planner__options { gap: 5px; }
+  .hk-today-planner__option { font-size: 11px !important; }
+  .hk-today-card { padding: 13px; gap: 12px; }
+  .hk-today-card__top { flex-wrap: wrap; }
+  .hk-today-card__badge { font-size: 11px; }
+  .hk-today-card__body { gap: 9px; }
+  .hk-today-card__body > svg { flex-basis: 22px; width: 22px; height: 22px; }
+}
+@media (max-width: 800px) {
+  .hk-today-planner { grid-template-columns: minmax(0, 1fr); margin: 32px 0 42px; padding-top: 28px; row-gap: 30px; }
+  .hk-today-planner__conditions { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 22px; }
+  .hk-today-planner__eyebrow, .hk-today-planner__title, .hk-today-planner__intro, .hk-today-planner__weather, .hk-today-planner__extras, .hk-today-planner__left-actions { grid-column: 1 / -1; }
+  .hk-today-planner__weather { margin-top: 20px; }
+  .hk-today-planner__weather-head { font-size: 13px; }
+  .hk-today-planner__weather-main { margin-top: 13px; }
+  .hk-today-planner__option { font-size: 12px !important; }
+  .hk-today-planner__choices-head { min-height: 0; }
+  .hk-today-card__title { font-size: 19px; }
+  .hk-today-planner__extra-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hk-today-planner__foot { grid-column: auto; }
+}
+@media (max-width: 540px) {
+  .hk-today-planner { margin-top: 28px; padding-top: 25px; row-gap: 25px; }
+  .hk-today-planner__conditions { display: block; }
+  .hk-today-planner .hk-today-planner__title { font-size: 33px; }
+  .hk-today-planner__weather { padding-left: 14px; padding-right: 14px; }
+  .hk-today-planner__choices-head { flex-wrap: wrap; gap: 2px; }
+  .hk-today-planner__choices-head h3 { font-size: 25px; }
+  .hk-today-planner__choices-head > button { padding-top: 8px; }
+  .hk-today-planner__grid { grid-template-columns: minmax(0, 1fr); gap: 11px; }
+  .hk-today-card { min-height: 164px; padding: 16px; gap: 14px; }
+  .hk-today-card__top { flex-wrap: nowrap; }
+  .hk-today-card__body { gap: 13px; }
+  .hk-today-card__body > svg { flex-basis: 26px; width: 26px; height: 26px; }
+  .hk-today-card__title { font-size: 20px; }
+  .hk-today-card__index, .hk-today-card__badge { font-size: 11px; }
+  .hk-today-planner__draft { padding: 14px; }
+  .hk-today-planner__draft-head > label { font-size: 22px; }
+  .hk-today-planner .hk-today-planner__draft-input, .hk-today-planner :is(input, select) { font-size: 16px; }
+  .hk-today-planner__draft-actions { grid-template-columns: minmax(0, 1fr); gap: 13px; }
+  .hk-today-planner__ask { width: 100%; min-height: 46px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hk-today-card { transition: none; }
+}
+@media print {
+  .hk-today-planner { display: none !important; }
+}

@@ -1,0 +1,128 @@
+/* Only loaded artwork enables the compact card layout. The original DOM stays live. */
+@media screen {
+  .cover-page .hk-entry-art__image {
+    --hk-entry-art-style-ready:1;
+    position:absolute;
+    z-index:1;
+    display:block;
+    max-width:none;
+    margin:0;
+    object-fit:contain;
+    pointer-events:none;
+    user-select:none;
+    -webkit-user-drag:none;
+    filter:drop-shadow(0 9px 10px rgb(25 53 34 / 12%));
+  }
+  .cover-page .hk-entry-art__image[hidden] { display:none !important; }
+
+  .cover-page.hk-has-entry-art .entry-choice { row-gap:38px; }
+  .cover-page .entry-card.hk-entry-art-ready[data-hk-entry-art] {
+    --hk-entry-copy-left:234px;
+    min-height:194px;
+    padding:18px 24px 16px var(--hk-entry-copy-left);
+    overflow:visible;
+    isolation:isolate;
+  }
+  .cover-page .entry-card.hk-entry-art-ready::before { display:none; }
+  .cover-page .entry-card.hk-entry-art-ready .entry-card__top,
+  .cover-page .entry-card.hk-entry-art-ready .entry-card__body,
+  .cover-page .entry-card.hk-entry-art-ready .entry-flow { position:relative; z-index:2; }
+  .cover-page .entry-card.hk-entry-art-ready .entry-card__top { min-height:22px; }
+  .cover-page .entry-card.hk-entry-art-ready .entry-card__top > span:first-child {
+    position:absolute;
+    top:-34px;
+    left:-14px;
+    display:inline-flex;
+    align-items:center;
+    min-height:34px;
+    padding:7px 22px 7px 14px;
+    border:1px solid #315f52;
+    border-radius:10px 3px 10px 3px;
+    clip-path:polygon(0 0,100% 0,calc(100% - 8px) 100%,0 100%);
+    color:#fffdf1;
+    background:#214b43;
+    font-family:var(--sans, sans-serif);
+    font-size:14px;
+    font-weight:600;
+    line-height:1.3;
+    letter-spacing:.03em;
+    white-space:nowrap;
+    pointer-events:none;
+  }
+  .cover-page .entry-card.hk-entry-art-ready[data-hk-entry-art="storefront"] .entry-card__top > span:first-child {
+    color:#214b43;
+    background:#f6efdf;
+    border-color:#ddd8c5;
+  }
+  .cover-page .entry-card.hk-entry-art-ready .entry-card__top > svg { margin-left:auto; }
+  .cover-page .entry-card.hk-entry-art-ready .entry-card__body {
+    display:block;
+    grid-template-columns:none;
+    margin:16px 0 12px;
+  }
+  .cover-page .entry-card.hk-entry-art-ready .entry-card__body > svg { display:none; }
+  .cover-page .entry-card.hk-entry-art-ready .entry-card__body h3 { margin-bottom:8px; }
+  .cover-page .entry-card.hk-entry-art-ready .entry-flow { flex-wrap:wrap; gap:6px 9px; }
+  .cover-page .entry-card[data-hk-entry-art="traveler"] > .hk-entry-art__image {
+    top:-34px;
+    left:-24px;
+    width:228px;
+    height:228px;
+  }
+  .cover-page .entry-card[data-hk-entry-art="storefront"] > .hk-entry-art__image {
+    top:-26px;
+    left:4px;
+    width:220px;
+    height:220px;
+  }
+}
+
+@media screen and (max-width:1120px) {
+  .cover-page .entry-card.hk-entry-art-ready[data-hk-entry-art] {
+    --hk-entry-copy-left:214px;
+  }
+  .cover-page .entry-card[data-hk-entry-art="traveler"] > .hk-entry-art__image {
+    top:-28px; left:-30px; width:222px; height:222px;
+  }
+  .cover-page .entry-card[data-hk-entry-art="storefront"] > .hk-entry-art__image {
+    top:-16px; left:-4px; width:210px; height:210px;
+  }
+}
+
+@media screen and (max-width:620px) {
+  .cover-page.hk-has-entry-art .entry-choice { row-gap:28px; }
+  .cover-page .entry-card.hk-entry-art-ready[data-hk-entry-art] {
+    --hk-entry-copy-left:clamp(142px,42vw,174px);
+    min-height:196px;
+    padding:16px 16px 16px var(--hk-entry-copy-left);
+  }
+  .cover-page .entry-card.hk-entry-art-ready .entry-card__top > span:first-child {
+    top:-30px; left:-12px; min-height:32px;
+    padding:6px 18px 6px 12px; font-size:13px;
+  }
+  .cover-page .entry-card.hk-entry-art-ready .entry-card__body { margin:13px 0 10px; }
+  .cover-page .entry-card.hk-entry-art-ready .entry-card__body h3 {
+    font-size:clamp(18px,5.6vw,22px);
+    line-height:1.35;
+    letter-spacing:-.025em;
+  }
+  .cover-page .entry-card.hk-entry-art-ready .entry-card__body p { font-size:11.5px; line-height:1.65; }
+  .cover-page .entry-card.hk-entry-art-ready .entry-flow { gap:4px 6px; font-size:7px; }
+  .cover-page .entry-card[data-hk-entry-art="traveler"] > .hk-entry-art__image {
+    top:-14px; left:-42px; width:210px; height:210px;
+  }
+  .cover-page .entry-card[data-hk-entry-art="storefront"] > .hk-entry-art__image {
+    top:-12px; left:-14px;
+    width:clamp(148px,45vw,178px);
+    height:clamp(148px,45vw,178px);
+  }
+}
+
+@media screen and (prefers-reduced-motion:reduce) {
+  .cover-page .entry-card.hk-entry-art-ready { transition:none; }
+  .cover-page .entry-card.hk-entry-art-ready:hover { transform:none; }
+}
+
+@media print {
+  .hk-entry-art__image { display:none !important; }
+}

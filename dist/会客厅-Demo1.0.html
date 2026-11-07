@@ -1595,6 +1595,20 @@ window.__DEEPSEEK_MODEL__="deepseek-flash";</script>
   .hk-owner-panel h2 { font-size: 19px; }
 }
 
+/* Merchant entry card: Material-style elevation + 3D tilt base. */
+.merchant-entry-card {
+  border-radius: 20px !important;
+  border: 1px solid rgba(30,40,35,0.06) !important;
+  background: #ffffff !important;
+  box-shadow: 0 2px 4px rgba(30,40,35,0.04), 0 8px 24px rgba(30,40,35,0.08);
+  transition: box-shadow .35s ease, border-color .35s ease;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+.merchant-entry-card:hover {
+  border-color: rgba(30,40,35,0.10) !important;
+}
+
 
 /* Room-only editorial treatment. Original chat controls and shop facts remain live. */
 @media screen {
@@ -4913,6 +4927,48 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
     refresh();
     return cleanup;
   };
+}());
+
+/* Merchant entry card: 3D tilt following pointer, Material-style elevation. */
+(function mountMerchantEntryTilt() {
+  'use strict';
+  var mounted = new WeakSet();
+  function attach(card) {
+    if (mounted.has(card)) return;
+    mounted.add(card);
+    card.style.transformStyle = 'preserve-3d';
+    card.style.willChange = 'transform';
+    card.style.transition = 'box-shadow .4s ease';
+    var target = { x: 0, y: 0 };
+    var current = { x: 0, y: 0 };
+    var raf = 0;
+    function frame() {
+      raf = 0;
+      current.x += (target.x - current.x) * 0.12;
+      current.y += (target.y - current.y) * 0.12;
+      var rx = (-current.y * 6).toFixed(2);
+      var ry = (current.x * 8).toFixed(2);
+      card.style.transform = 'perspective(1000px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) translateZ(0)';
+      var energy = Math.min(1, Math.hypot(current.x, current.y));
+      card.style.boxShadow = '0 8px 24px rgba(30,40,35,0.08), 0 ' + (12 + energy * 20) + 'px ' + (32 + energy * 40) + 'px rgba(30,40,35,' + (0.10 + energy * 0.10).toFixed(3) + ')';
+      if (Math.abs(target.x - current.x) > 0.01 || Math.abs(target.y - current.y) > 0.01) raf = requestAnimationFrame(frame);
+    }
+    function wake() { if (!raf) raf = requestAnimationFrame(frame); }
+    card.addEventListener('pointermove', function (e) {
+      var r = card.getBoundingClientRect();
+      target.x = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      target.y = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      wake();
+    });
+    card.addEventListener('pointerleave', function () {
+      target.x = 0; target.y = 0; wake();
+    });
+  }
+  function scan() {
+    document.querySelectorAll('.merchant-entry-card').forEach(attach);
+  }
+  new MutationObserver(scan).observe(document.body, { childList: true, subtree: true });
+  scan();
 }());
 
 

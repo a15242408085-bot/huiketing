@@ -312,3 +312,17 @@
   .hk-owner-panel { padding: 20px 18px; }
   .hk-owner-panel h2 { font-size: 19px; }
 }
+
+/* Merchant entry card: Material-style elevation + 3D tilt base. */
+.merchant-entry-card {
+  border-radius: 20px !important;
+  border: 1px solid rgba(30,40,35,0.06) !important;
+  background: #ffffff !important;
+  box-shadow: 0 2px 4px rgba(30,40,35,0.04), 0 8px 24px rgba(30,40,35,0.08);
+  transition: box-shadow .35s ease, border-color .35s ease;
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+.merchant-entry-card:hover {
+  border-color: rgba(30,40,35,0.10) !important;
+}

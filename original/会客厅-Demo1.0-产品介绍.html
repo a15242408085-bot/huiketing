@@ -1,0 +1,1136 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="会客厅 Demo 1.0：面向第一次独自到访游客的 AI 店铺接待员与独立店主工作台。"
+    />
+    <title>会客厅 Demo 1.0 · 产品介绍</title>
+    <style>
+      :root {
+        --paper: #f1eadc;
+        --paper-0: #faf6ed;
+        --paper-deep: #e5dac3;
+        --ink: #20221d;
+        --muted: #6f695c;
+        --faint: #7a7160;
+        --line: #cec1aa;
+        --line-dark: #9b8d76;
+        --rust: #9d492c;
+        --teal: #23545a;
+        --teal-deep: #193f43;
+        --bamboo: #66765d;
+        --gold: #b1854d;
+        --serif: "Songti SC", "STSong", "Noto Serif CJK SC", serif;
+        --sans: "Microsoft YaHei", "PingFang SC", sans-serif;
+        --mono: "SFMono-Regular", Consolas, monospace;
+        --page: min(1180px, calc(100% - 48px));
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background-color: var(--paper);
+        background-image:
+          radial-gradient(circle at 20% 10%, rgba(91, 76, 46, 0.04) 0 0.7px, transparent 0.9px),
+          repeating-linear-gradient(
+            90deg,
+            transparent 0,
+            transparent 59px,
+            rgba(94, 76, 44, 0.025) 60px
+          );
+        background-size: 7px 7px, auto;
+        font-family: var(--sans);
+        line-height: 1.75;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      p,
+      h1,
+      h2,
+      h3,
+      blockquote {
+        margin-top: 0;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        border-bottom: 1px solid var(--line);
+        background: color-mix(in srgb, var(--paper) 92%, transparent);
+        backdrop-filter: blur(14px);
+      }
+
+      .topbar__inner {
+        width: var(--page);
+        min-height: 68px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .seal {
+        display: grid;
+        width: 36px;
+        height: 36px;
+        place-items: center;
+        border: 1px solid var(--rust);
+        color: var(--rust);
+        font-family: var(--serif);
+        font-size: 15px;
+      }
+
+      .brand strong {
+        display: block;
+        font-family: var(--serif);
+        font-size: 18px;
+        letter-spacing: 0.12em;
+      }
+
+      .brand small,
+      .eyebrow,
+      .mono {
+        font-family: var(--mono);
+        font-size: 9px;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+      }
+
+      .brand small {
+        color: var(--faint);
+      }
+
+      .topnav {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .topnav a:hover {
+        color: var(--rust);
+      }
+
+      .topnav .demo-link {
+        padding: 9px 14px;
+        color: var(--paper-0);
+        background: var(--teal-deep);
+      }
+
+      .hero {
+        width: var(--page);
+        min-height: calc(100vh - 68px);
+        margin: 0 auto;
+        padding: 72px 0 90px;
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        align-items: center;
+        gap: 80px;
+      }
+
+      .hero h1 {
+        margin: 22px 0 28px;
+        font-family: var(--serif);
+        font-size: clamp(54px, 6.2vw, 92px);
+        font-weight: 500;
+        letter-spacing: -0.065em;
+        line-height: 1.14;
+      }
+
+      .hero h1 em {
+        color: var(--rust);
+        font-style: normal;
+      }
+
+      .hero__lead {
+        max-width: 650px;
+        color: var(--muted);
+        font-family: var(--serif);
+        font-size: 18px;
+        line-height: 1.95;
+      }
+
+      .hero__actions {
+        margin-top: 34px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .button {
+        min-height: 46px;
+        padding: 0 18px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        border: 1px solid var(--line-dark);
+        font-size: 12px;
+        transition: 180ms ease;
+      }
+
+      .button--primary {
+        border-color: var(--rust);
+        color: var(--paper-0);
+        background: var(--rust);
+      }
+
+      .button--primary:hover {
+        background: #7e351f;
+      }
+
+      .button--ghost:hover {
+        border-color: var(--ink);
+        background: var(--paper-0);
+      }
+
+      .hero__stats {
+        margin-top: 42px;
+        padding-top: 18px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 28px;
+        border-top: 1px solid var(--line-dark);
+        color: var(--faint);
+        font-family: var(--mono);
+        font-size: 9px;
+      }
+
+      .hero__folio {
+        position: relative;
+        min-height: 590px;
+      }
+
+      .folio-card {
+        position: absolute;
+        inset: 25px 10px 25px 30px;
+        padding: 32px;
+        border: 1px solid var(--line);
+        background: var(--paper-0);
+        box-shadow: 0 28px 70px rgba(52, 42, 25, 0.14);
+        transform: rotate(1.4deg);
+      }
+
+      .folio-card::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto;
+        height: 8px;
+        background: var(--teal);
+      }
+
+      .folio-card__top {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        color: var(--faint);
+        font-family: var(--mono);
+        font-size: 8px;
+      }
+
+      .folio-card h2 {
+        margin: 72px 0 8px;
+        color: var(--teal);
+        font-family: var(--serif);
+        font-size: 54px;
+        font-weight: 500;
+        letter-spacing: -0.05em;
+      }
+
+      .folio-card__subtitle {
+        color: var(--muted);
+        font-family: var(--serif);
+        font-size: 15px;
+      }
+
+      .loop-mini {
+        margin-top: 50px;
+        display: grid;
+        gap: 0;
+        border-top: 1px solid var(--line-dark);
+      }
+
+      .loop-mini__row {
+        padding: 14px 0;
+        display: grid;
+        grid-template-columns: 28px 1fr auto;
+        align-items: center;
+        gap: 12px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .loop-mini__row span:first-child {
+        color: var(--rust);
+        font-family: var(--mono);
+        font-size: 8px;
+      }
+
+      .loop-mini__row strong {
+        font-family: var(--serif);
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .loop-mini__row em {
+        color: var(--faint);
+        font-family: var(--mono);
+        font-size: 8px;
+        font-style: normal;
+      }
+
+      .folio-card__quote {
+        margin-top: 32px;
+        font-family: var(--serif);
+        font-size: 16px;
+        line-height: 1.8;
+      }
+
+      .folio-card__quote small {
+        display: block;
+        margin-top: 8px;
+        color: var(--faint);
+        font-family: var(--mono);
+        font-size: 8px;
+      }
+
+      .toc {
+        border-top: 1px solid var(--line-dark);
+        border-bottom: 1px solid var(--line-dark);
+      }
+
+      .toc__inner {
+        width: var(--page);
+        min-height: 70px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      .toc__inner span {
+        color: var(--faint);
+        font-family: var(--mono);
+        font-size: 8px;
+      }
+
+      .toc__inner a {
+        color: var(--muted);
+        font-size: 11px;
+      }
+
+      .toc__inner a:hover {
+        color: var(--rust);
+      }
+
+      .section {
+        width: var(--page);
+        margin: 0 auto;
+        padding: 96px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .section-heading {
+        margin-bottom: 46px;
+        display: grid;
+        grid-template-columns: 1fr 0.75fr;
+        gap: 70px;
+        align-items: end;
+      }
+
+      .section-heading .eyebrow {
+        grid-column: 1 / -1;
+        color: var(--rust);
+      }
+
+      .section-heading h2 {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: clamp(36px, 4.4vw, 62px);
+        font-weight: 500;
+        letter-spacing: -0.05em;
+        line-height: 1.18;
+      }
+
+      .section-heading p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.9;
+      }
+
+      .insight-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        border-top: 1px solid var(--line-dark);
+        border-left: 1px solid var(--line);
+      }
+
+      .insight {
+        min-height: 250px;
+        padding: 24px;
+        border-right: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .insight span {
+        color: var(--rust);
+        font-family: var(--mono);
+        font-size: 9px;
+      }
+
+      .insight h3 {
+        margin: 46px 0 14px;
+        font-family: var(--serif);
+        font-size: 22px;
+        font-weight: 500;
+      }
+
+      .insight p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 1.85;
+      }
+
+      .core-loop {
+        padding: 36px;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 1px;
+        background: var(--teal-deep);
+      }
+
+      .core-loop article {
+        min-height: 220px;
+        padding: 24px 20px;
+        color: var(--paper-0);
+        background: var(--teal-deep);
+      }
+
+      .core-loop span {
+        color: color-mix(in srgb, var(--paper-0) 48%, transparent);
+        font-family: var(--mono);
+        font-size: 9px;
+      }
+
+      .core-loop h3 {
+        margin: 56px 0 10px;
+        font-family: var(--serif);
+        font-size: 22px;
+        font-weight: 500;
+      }
+
+      .core-loop p {
+        color: color-mix(in srgb, var(--paper-0) 65%, transparent);
+        font-size: 10px;
+        line-height: 1.8;
+      }
+
+      .roles {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+
+      .role-card {
+        min-height: 430px;
+        padding: 30px;
+        border: 1px solid var(--line);
+        background: var(--paper-0);
+      }
+
+      .role-card--merchant {
+        color: var(--paper-0);
+        background: var(--teal-deep);
+        border-color: var(--teal-deep);
+      }
+
+      .role-card__label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: var(--mono);
+        font-size: 9px;
+      }
+
+      .role-card h3 {
+        margin: 70px 0 14px;
+        font-family: var(--serif);
+        font-size: 36px;
+        font-weight: 500;
+      }
+
+      .role-card > p {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.9;
+      }
+
+      .role-card--merchant > p {
+        color: color-mix(in srgb, var(--paper-0) 68%, transparent);
+      }
+
+      .role-card ul {
+        margin: 36px 0 0;
+        padding: 0;
+        display: grid;
+        gap: 11px;
+        list-style: none;
+      }
+
+      .role-card li {
+        padding-top: 11px;
+        border-top: 1px solid var(--line);
+        font-family: var(--serif);
+        font-size: 13px;
+      }
+
+      .role-card--merchant li {
+        border-color: color-mix(in srgb, var(--paper-0) 22%, transparent);
+      }
+
+      .step-list {
+        counter-reset: steps;
+        border-top: 1px solid var(--line-dark);
+      }
+
+      .step {
+        min-height: 150px;
+        padding: 24px 0;
+        display: grid;
+        grid-template-columns: 80px 280px 1fr;
+        gap: 28px;
+        align-items: start;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .step::before {
+        counter-increment: steps;
+        content: "0" counter(steps);
+        color: var(--rust);
+        font-family: var(--serif);
+        font-size: 32px;
+      }
+
+      .step h3 {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: 22px;
+        font-weight: 500;
+      }
+
+      .step p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 1.9;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .feature {
+        min-height: 240px;
+        padding: 26px;
+        border: 1px solid var(--line);
+        background: color-mix(in srgb, var(--paper-0) 68%, transparent);
+      }
+
+      .feature__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: var(--faint);
+        font-family: var(--mono);
+        font-size: 8px;
+      }
+
+      .feature h3 {
+        margin: 50px 0 12px;
+        font-family: var(--serif);
+        font-size: 25px;
+        font-weight: 500;
+      }
+
+      .feature p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 1.9;
+      }
+
+      .feature--accent {
+        color: var(--paper-0);
+        background: var(--rust);
+        border-color: var(--rust);
+      }
+
+      .feature--accent p,
+      .feature--accent .feature__top {
+        color: color-mix(in srgb, var(--paper-0) 72%, transparent);
+      }
+
+      .boundary-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .boundary-table th,
+      .boundary-table td {
+        padding: 17px 16px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+        font-size: 11px;
+        line-height: 1.8;
+      }
+
+      .boundary-table th {
+        color: var(--faint);
+        font-family: var(--mono);
+        font-size: 8px;
+        font-weight: 400;
+        letter-spacing: 0.06em;
+      }
+
+      .boundary-table td:first-child {
+        width: 26%;
+        font-family: var(--serif);
+        font-size: 14px;
+      }
+
+      .dataset {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        border-top: 1px solid var(--line-dark);
+        border-left: 1px solid var(--line);
+      }
+
+      .dataset article {
+        min-height: 190px;
+        padding: 22px;
+        border-right: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .dataset strong {
+        display: block;
+        color: var(--rust);
+        font-family: var(--serif);
+        font-size: 56px;
+        font-weight: 500;
+        line-height: 1;
+      }
+
+      .dataset span {
+        display: block;
+        margin-top: 25px;
+        color: var(--muted);
+        font-size: 10px;
+        line-height: 1.7;
+      }
+
+      .bottom-cta {
+        padding: 90px 50px;
+        color: var(--paper-0);
+        background: var(--teal-deep);
+        text-align: center;
+      }
+
+      .bottom-cta h2 {
+        max-width: 800px;
+        margin: 0 auto 22px;
+        font-family: var(--serif);
+        font-size: clamp(38px, 5vw, 64px);
+        font-weight: 400;
+        line-height: 1.4;
+      }
+
+      .bottom-cta p {
+        max-width: 680px;
+        margin: 0 auto 30px;
+        color: color-mix(in srgb, var(--paper-0) 68%, transparent);
+        font-size: 12px;
+        line-height: 1.9;
+      }
+
+      .bottom-cta .button {
+        color: var(--teal-deep);
+        border-color: var(--paper-0);
+        background: var(--paper-0);
+      }
+
+      footer {
+        width: var(--page);
+        margin: 0 auto;
+        padding: 30px 0 40px;
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+        color: var(--faint);
+        font-family: var(--mono);
+        font-size: 8px;
+        line-height: 1.7;
+      }
+
+      @media (max-width: 900px) {
+        .hero,
+        .section-heading,
+        .roles {
+          grid-template-columns: 1fr;
+        }
+
+        .hero__folio {
+          min-height: 600px;
+        }
+
+        .hero__lead {
+          font-size: 16px;
+        }
+
+        .core-loop {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .step {
+          grid-template-columns: 52px 180px 1fr;
+        }
+
+        .dataset {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 620px) {
+        :root {
+          --page: calc(100% - 28px);
+        }
+
+        .topbar__inner {
+          min-height: 62px;
+        }
+
+        .topnav a:not(.demo-link) {
+          display: none;
+        }
+
+        .topnav .demo-link {
+          padding: 8px 10px;
+          font-size: 10px;
+        }
+
+        .hero {
+          min-height: 0;
+          padding: 46px 0 70px;
+          gap: 40px;
+        }
+
+        .hero h1 {
+          font-size: 48px;
+        }
+
+        .hero__actions {
+          flex-direction: column;
+        }
+
+        .hero__folio {
+          min-height: 570px;
+        }
+
+        .folio-card {
+          inset: 10px 0;
+          padding: 22px;
+          transform: none;
+        }
+
+        .folio-card h2 {
+          margin-top: 52px;
+          font-size: 42px;
+        }
+
+        .section {
+          padding: 70px 0;
+        }
+
+        .insight-grid,
+        .feature-grid,
+        .core-loop {
+          grid-template-columns: 1fr;
+        }
+
+        .core-loop {
+          padding: 20px;
+        }
+
+        .core-loop article {
+          min-height: 140px;
+        }
+
+        .core-loop h3 {
+          margin-top: 25px;
+        }
+
+        .role-card {
+          min-height: 0;
+          padding: 24px 20px;
+        }
+
+        .role-card h3 {
+          margin-top: 45px;
+          font-size: 30px;
+        }
+
+        .step {
+          grid-template-columns: 42px 1fr;
+          gap: 14px;
+        }
+
+        .step p {
+          grid-column: 2;
+        }
+
+        .boundary-table {
+          display: block;
+          overflow-x: auto;
+          white-space: nowrap;
+        }
+
+        .boundary-table th,
+        .boundary-table td {
+          min-width: 180px;
+          white-space: normal;
+        }
+
+        .dataset {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .bottom-cta {
+          padding: 64px 20px;
+        }
+
+        footer {
+          flex-direction: column;
+          gap: 8px;
+        }
+      }
+
+      @media print {
+        .topbar,
+        .toc,
+        .hero__actions,
+        .bottom-cta .button {
+          display: none;
+        }
+
+        body {
+          background: #fff;
+        }
+
+        .hero {
+          min-height: 0;
+        }
+
+        .section {
+          break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar__inner">
+        <a class="brand" href="./会客厅-Demo1.0.html">
+          <span class="seal">会</span>
+          <span>
+            <strong>会客厅</strong>
+            <small>HOMETOWN ROOM · DEMO 1.0</small>
+          </span>
+        </a>
+        <nav class="topnav" aria-label="产品介绍导航">
+          <a href="#problem">问题</a>
+          <a href="#product">产品</a>
+          <a href="#functions">功能</a>
+          <a href="#boundaries">边界</a>
+          <a class="demo-link" href="./会客厅-Demo1.0.html">进入 Demo</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <span class="eyebrow">AI 文旅 · 小店接待 · Demo 1.0</span>
+          <h1>让游客知道<em>怎么进门</em>，<br />让店主听见没被回答的问题。</h1>
+          <p class="hero__lead">
+            会客厅是一套连接游客与独立小店的 AI 接待系统。它以店主确认过的资料为事实来源，
+            回答游客到店前最具体的犹豫；再把游客问题沉淀成店主可以行动的经营信号。
+          </p>
+          <div class="hero__actions">
+            <a class="button button--primary" href="./会客厅-Demo1.0.html">在线体验 Demo</a>
+            <a class="button button--ghost" href="#functions">查看完整功能</a>
+          </div>
+          <div class="hero__stats">
+            <span>3 个地区</span>
+            <span>5 家小店</span>
+            <span>90 条店主知识</span>
+            <span>18 类游客情形</span>
+          </div>
+        </div>
+
+        <div class="hero__folio" aria-hidden="true">
+          <div class="folio-card">
+            <div class="folio-card__top">
+              <span>第一次到访 · 单人</span>
+              <span>云溪镇</span>
+            </div>
+            <h2>先坐一歇。</h2>
+            <p class="folio-card__subtitle">工作日下午，吧台还有单人位。</p>
+            <div class="loop-mini">
+              <div class="loop-mini__row">
+                <span>01</span>
+                <strong>游客：一个人怎么坐？</strong>
+                <em>问题</em>
+              </div>
+              <div class="loop-mini__row">
+                <span>02</span>
+                <strong>AI：引用店主资料回答</strong>
+                <em>接待</em>
+              </div>
+              <div class="loop-mini__row">
+                <span>03</span>
+                <strong>到店卡：怎么点、怎么问</strong>
+                <em>输出</em>
+              </div>
+              <div class="loop-mini__row">
+                <span>04</span>
+                <strong>店主：看到问题和资料缺口</strong>
+                <em>回声</em>
+              </div>
+            </div>
+            <p class="folio-card__quote">
+              “一壶茶不催人。你坐着，屋檐外下雨也好，发呆也好。”
+              <small>桥西茶寮 · 店主沈岚</small>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <nav class="toc" aria-label="目录">
+        <div class="toc__inner">
+          <span>CONTENTS</span>
+          <a href="#problem">01 产品问题</a>
+          <a href="#product">02 核心闭环</a>
+          <a href="#roles">03 双端角色</a>
+          <a href="#tourist">04 游客流程</a>
+          <a href="#merchant">05 店主流程</a>
+          <a href="#functions">06 功能清单</a>
+          <a href="#boundaries">07 AI 边界</a>
+          <a href="#dataset">08 Demo 数据</a>
+        </div>
+      </nav>
+
+      <section class="section" id="problem">
+        <div class="section-heading">
+          <span class="eyebrow">01 · Problem</span>
+          <h2>真正难的不是找到店，是到了门口以后怎么办。</h2>
+          <p>
+            普通攻略解决“去哪”，会客厅解决“我现在能不能走进去、怎么点、坐哪里、怎么开口”。
+            对店主而言，它解决另一侧问题：自己知道的事没有被讲清楚，游客的问题也没有被留下。
+          </p>
+        </div>
+        <div class="insight-grid">
+          <article class="insight">
+            <span>游客侧</span>
+            <h3>信息很多，行动很少</h3>
+            <p>攻略能告诉游客“值得去”，却很难回答一个人怎么坐、分量多大、几点最安静、进门先做什么。</p>
+          </article>
+          <article class="insight">
+            <span>店主侧</span>
+            <h3>有真实内容，没有内容产能</h3>
+            <p>店主知道产品、故事和礼仪，但没有时间持续做菜单说明、问答、短视频和社交内容。</p>
+          </article>
+          <article class="insight">
+            <span>小地方</span>
+            <h3>宝藏小店缺少被发现的机会</h3>
+            <p>非连锁小店难以被算法公平看见。会客厅用店主授权的一手信息建立可信入口。</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="product">
+        <div class="section-heading">
+          <span class="eyebrow">02 · Core Loop</span>
+          <h2>一次对话结束，商家的记忆开始生长。</h2>
+          <p>
+            产品不是一次性聊天，也不是静态店铺页。游客每次提问都会验证店主资料是否清楚，
+            并生成下一位游客可以复用的答案。
+          </p>
+        </div>
+        <div class="core-loop">
+          <article><span>01</span><h3>店主资料</h3><p>事实、菜单、时间、座位、礼仪与不可代答的边界。</p></article>
+          <article><span>02</span><h3>AI 会客厅</h3><p>只依据授权资料，把信息翻译成游客当下可执行的建议。</p></article>
+          <article><span>03</span><h3>第一次到店卡</h3><p>怎么点、怎么坐、问老板什么、避开哪个误会。</p></article>
+          <article><span>04</span><h3>问题回声</h3><p>高频问题、未答问题和真实体验反馈回流到店主。</p></article>
+          <article><span>05</span><h3>补资料与内容</h3><p>补一次资料，下一次回答变好；真实问题再生成内容。</p></article>
+        </div>
+      </section>
+
+      <section class="section" id="roles">
+        <div class="section-heading">
+          <span class="eyebrow">03 · Two Entrances</span>
+          <h2>游客和店主，从两扇不同的门进入。</h2>
+          <p>两端不共用同一套操作页面，避免把游客对话、店主资料和经营数据混在一起。</p>
+        </div>
+        <div class="roles">
+          <article class="role-card">
+            <div class="role-card__label"><span>游客入口</span><span>VISITOR</span></div>
+            <h3>我要去一个地方</h3>
+            <p>选择地区、小镇和店铺，进入 AI 会客厅，带着一张可执行的到店卡离开。</p>
+            <ul>
+              <li>输入：我此刻真正关心的问题</li>
+              <li>过程：AI 根据店主资料回答</li>
+              <li>输出：第一次到店卡</li>
+              <li>回流：一条匿名体验回声</li>
+            </ul>
+          </article>
+          <article class="role-card role-card--merchant">
+            <div class="role-card__label"><span>店主入口</span><span>MERCHANT</span></div>
+            <h3>我在经营一家店</h3>
+            <p>选择自己的地区和店铺，先维护资料，再查看游客问题与内容草稿。</p>
+            <ul>
+              <li>输入：店主确认过的信息</li>
+              <li>过程：AI 用这些资料接待游客</li>
+              <li>输出：问题聚类、资料缺口、体验回声</li>
+              <li>行动：补资料或生成内容</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="tourist">
+        <div class="section-heading">
+          <span class="eyebrow">04 · Visitor Flow</span>
+          <h2>从地区目录，一路走到一张到店卡。</h2>
+          <p>每一步只做一个决定，避免首页同时出现地图、攻略、店铺榜和聊天框。</p>
+        </div>
+        <div class="step-list">
+          <article class="step"><h3>选择地区</h3><p>江南水乡、山野茶路等地区分别组织，未来可扩展到更多地区。</p></article>
+          <article class="step"><h3>选择小镇</h3><p>每个小镇维护自己的地方介绍、开放状态和店铺目录。</p></article>
+          <article class="step"><h3>选择店铺</h3><p>查看营业时间、位置、简短故事与到店场景，选择最符合当前需求的一家。</p></article>
+          <article class="step"><h3>进入 AI 会客厅</h3><p>AI 明确不是店主本人，只使用店主确认资料，并标记“店主提供”的来源。</p></article>
+          <article class="step"><h3>生成第一次到店卡</h3><p>把对话整理成点单、座位、店主提问、本地表达、误会提醒和下一站。</p></article>
+          <article class="step"><h3>留下体验回声</h3><p>游客用一句话说明哪条建议真正改变了行动，供下一位游客参考。</p></article>
+        </div>
+      </section>
+
+      <section class="section" id="merchant">
+        <div class="section-heading">
+          <span class="eyebrow">05 · Merchant Flow</span>
+          <h2>店主先输入资料，再读取回声。</h2>
+          <p>店主工作台把“资料输入”和“游客输出”拆成两个独立视图，减少误操作与信息混淆。</p>
+        </div>
+        <div class="step-list">
+          <article class="step"><h3>店主资料</h3><p>查看 AI 已读取的 14–20 条知识，按位置、菜单、座位、设施、礼仪等分类浏览。</p></article>
+          <article class="step"><h3>补充待答问题</h3><p>看到游客反复问但没有资料覆盖的问题，直接补一条有店主确认的回答。</p></article>
+          <article class="step"><h3>自由录入知识</h3><p>店主可以主动增加任何游客常问内容；该资料会进入后续 AI 上下文。</p></article>
+          <article class="step"><h3>游客回声</h3><p>查看问题聚类、实时问题主题、体验反馈和未解决资料缺口。</p></article>
+          <article class="step"><h3>内容生成</h3><p>从真实问题生成门口二维码卡、30 秒短视频脚本或店内小黑板文案。</p></article>
+        </div>
+      </section>
+
+      <section class="section" id="functions">
+        <div class="section-heading">
+          <span class="eyebrow">06 · Features</span>
+          <h2>Demo 1.0 已具备的完整能力。</h2>
+          <p>从内容入口到 AI 回答、资料回流和生成内容均已经串联，不是静态页面拼图。</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature"><div class="feature__top"><span>01</span><span>DISCOVERY</span></div><h3>三级目录</h3><p>封面选择身份，游客再选择地区、小镇和店铺，路径清晰，不再把所有店堆在一个首页。</p></article>
+          <article class="feature"><div class="feature__top"><span>02</span><span>AI HOST</span></div><h3>店主资料接待员</h3><p>使用 DeepSeek Flash，只依据授权资料回答，价格、时间、设施和礼仪均显示来源。</p></article>
+          <article class="feature"><div class="feature__top"><span>03</span><span>ARRIVAL CARD</span></div><h3>第一次到店卡</h3><p>将对话压缩为六个行动模块，并支持打印或保存 PDF，适合真正带到线下。</p></article>
+          <article class="feature"><div class="feature__top"><span>04</span><span>VOICE OF VISITORS</span></div><h3>体验回声</h3><p>游客可匿名提交一句最有用的话，帮助店铺看到哪些解释真正降低了行动门槛。</p></article>
+          <article class="feature"><div class="feature__top"><span>05</span><span>OWNER KNOWLEDGE</span></div><h3>结构化店主知识库</h3><p>每家店有 14–20 条知识，覆盖菜单、高峰、座位、设施、摄影、支付、天气和边界。</p></article>
+          <article class="feature feature--accent"><div class="feature__top"><span>06</span><span>QUALITY GUARD</span></div><h3>回答意图校验</h3><p>先识别排队、时间、菜单、座位等意图，回答后再校验。跑题时自动修正，例如排队问题不会再返回菜单推荐。</p></article>
+          <article class="feature"><div class="feature__top"><span>07</span><span>CONTENT STUDIO</span></div><h3>问题驱动内容</h3><p>营销内容来自游客真实高频问题，而不是凭空写“全网必去”的营销套话。</p></article>
+          <article class="feature"><div class="feature__top"><span>08</span><span>EXPANDABLE</span></div><h3>多地区架构</h3><p>地区、小镇、店铺、知识和经营数据均为独立数据层，可继续增加真实家乡和小店。</p></article>
+        </div>
+      </section>
+
+      <section class="section" id="boundaries">
+        <div class="section-heading">
+          <span class="eyebrow">07 · AI Boundaries</span>
+          <h2>可信，不是因为 AI 什么都知道，而是它知道什么时候停下。</h2>
+          <p>会客厅把“店主事实”和“AI 整理”分开，也把体验反馈限制在体验参考，不作为营业承诺。</p>
+        </div>
+        <table class="boundary-table">
+          <thead>
+            <tr><th>信息类型</th><th>AI 如何使用</th><th>不允许做什么</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>店主资料</td><td>作为回答事实、到店卡和内容生成的基础。</td><td>不自行补充价格、营业时间、库存或预定承诺。</td></tr>
+            <tr><td>体验反馈</td><td>说明其他游客哪些建议有帮助。</td><td>不把体验反馈当成客观事实，不据此推导营业承诺。</td></tr>
+            <tr><td>资料缺口</td><td>明确告诉游客“店主资料里还没有写”。</td><td>不用常识补齐，不替店主编答案。</td></tr>
+            <tr><td>店主更新</td><td>补充一条资料后，下一轮回答立即使用。</td><td>不自动替代店主认证，Demo 中新增资料带有确认步骤。</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section" id="dataset">
+        <div class="section-heading">
+          <span class="eyebrow">08 · Demo Dataset</span>
+          <h2>完整的虚构演示数据，支撑真实交互。</h2>
+          <p>Demo 1.0 使用虚构地区与店铺，避免把演示信息误认为真实营业信息；数据结构可直接替换为真实店主资料。</p>
+        </div>
+        <div class="dataset">
+          <article><strong>3</strong><span>地区：江南水乡、山野茶路、海风渔村（筹备）</span></article>
+          <article><strong>5</strong><span>小店：茶寮、面馆、竹编所、豆腐坊、茶屋</span></article>
+          <article><strong>90</strong><span>结构化店主知识：位置、菜单、设施、礼仪、边界</span></article>
+          <article><strong>18</strong><span>游客情形：独行、雨天、排队、忌口、预算、拍照等</span></article>
+        </div>
+      </section>
+
+      <section class="bottom-cta">
+        <h2>地方不是一张地图。<br />是有人愿意把门打开，把话说明白。</h2>
+        <p>
+          从游客入口体验一次真实问答与到店卡，或从店主入口补充资料、查看问题回声并生成内容。
+        </p>
+        <a class="button" href="./会客厅-Demo1.0.html">进入会客厅 Demo</a>
+      </section>
+    </main>
+
+    <footer>
+      <span>会客厅 Demo 1.0 · 单文件产品介绍</span>
+      <span>虚构演示环境 · 所有地区、店铺与人物均非真实</span>
+    </footer>
+  </body>
+</html>

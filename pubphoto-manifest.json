@@ -1,0 +1,60 @@
+{
+  "notice": "公开演示仅使用同一张 AI 生成竹林图作为八个可替换占位和海岸卡片占位，不含真实店铺照片。",
+  "items": [
+    {
+      "title": "江南空间 · 生成示意 01",
+      "alt": "AI 生成的竹林水乡示意图，不对应真实店铺。",
+      "theme": "江南",
+      "asset": "assets/bamboo-water-town.png"
+    },
+    {
+      "title": "江南空间 · 生成示意 02",
+      "alt": "AI 生成的竹林水乡示意图，不对应真实店铺。",
+      "theme": "江南",
+      "asset": "assets/bamboo-water-town.png"
+    },
+    {
+      "title": "江南空间 · 生成示意 03",
+      "alt": "AI 生成的竹林水乡示意图，不对应真实店铺。",
+      "theme": "江南",
+      "asset": "assets/bamboo-water-town.png"
+    },
+    {
+      "title": "江南空间 · 生成示意 04",
+      "alt": "AI 生成的竹林水乡示意图，不对应真实店铺。",
+      "theme": "江南",
+      "asset": "assets/bamboo-water-town.png"
+    },
+    {
+      "title": "山野空间 · 生成示意 05",
+      "alt": "AI 生成的竹林水乡示意图，不对应真实店铺。",
+      "theme": "山野",
+      "asset": "assets/bamboo-water-town.png"
+    },
+    {
+      "title": "山野空间 · 生成示意 06",
+      "alt": "AI 生成的竹林水乡示意图，不对应真实店铺。",
+      "theme": "山野",
+      "asset": "assets/bamboo-water-town.png"
+    },
+    {
+      "title": "山野空间 · 生成示意 07",
+      "alt": "AI 生成的竹林水乡示意图，不对应真实店铺。",
+      "theme": "山野",
+      "asset": "assets/bamboo-water-town.png"
+    },
+    {
+      "title": "山野空间 · 生成示意 08",
+      "alt": "AI 生成的竹林水乡示意图，不对应真实店铺。",
+      "theme": "山野",
+      "asset": "assets/bamboo-water-town.png"
+    }
+  ],
+  "coast_reference": {
+    "title": "海风地区 · 生成示意占位",
+    "alt": "竹林水乡生成示意图，仅演示海岸卡片布局，不是海岸实景。",
+    "theme": "海风",
+    "role": "coast_reference",
+    "asset": "assets/bamboo-water-town.png"
+  }
+}

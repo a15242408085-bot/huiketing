@@ -1,0 +1,54 @@
+/* Paint only: the original h1, line break, em and all font metrics are kept. */
+@media screen {
+  h1[data-hk-silk="silk-svg-v1"] {
+    color: #214d36;
+    filter: url("#hk-visualfx-silk-title-filter-v1");
+  }
+
+  h1[data-hk-silk="silk-svg-v1"] em {
+    color: #356545;
+  }
+
+  @supports ((background-clip: text) or (-webkit-background-clip: text)) {
+    h1[data-hk-silk="silk-svg-v1"] {
+      /* Narrow, muted highlights keep the Chinese strokes crisp and dark. */
+      background-image: linear-gradient(
+        117deg,
+        #173d2c 0%,
+        #2b573b 18%,
+        #587548 26%,
+        #698653 29%,
+        #57764d 33%,
+        #244e36 41%,
+        #193f2c 57%,
+        #5b794b 66%,
+        #698653 69%,
+        #3d6545 74%,
+        #204a33 100%
+      );
+      background-size: 175% 100%;
+      background-position: 43% center;
+      background-repeat: no-repeat;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
+
+    h1[data-hk-silk="silk-svg-v1"] em {
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  /* Let OS contrast settings retain the original, selectable text. */
+  @media (forced-colors: active) {
+    h1[data-hk-silk="silk-svg-v1"],
+    h1[data-hk-silk="silk-svg-v1"] em {
+      background-image: none;
+      color: CanvasText;
+      -webkit-text-fill-color: CanvasText;
+      filter: none;
+    }
+  }
+}

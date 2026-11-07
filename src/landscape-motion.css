@@ -1,0 +1,44 @@
+/* Independent photo-plane depth treatment; original content remains in normal flow. */
+@media screen {
+  .app-shell[data-hk-landscape="ready"] {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .app-shell[data-hk-landscape="ready"] .cover-page,
+  .app-shell[data-hk-landscape="ready"] .global-footer {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hk-landscape-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    contain: paint;
+  }
+
+  .hk-landscape-plane {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    transform-origin: 50% 45%;
+    backface-visibility: hidden;
+    will-change: transform;
+  }
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .hk-landscape-plane {
+    transform: none !important;
+    will-change: auto;
+  }
+}
+
+@media print {
+  .hk-landscape-layer {
+    display: none !important;
+  }
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "file": "会客厅-Demo1.0.html",
+    "sanitized_original_sha256": "4becf276d93a1a95d61e419f20f0ce53401c88fd7166a2922e832a3d5714ea54",
+    "sanitized_original_exactly_recovered_after_removing_added_blocks": true,
+    "functional_scripts_unchanged_from_sanitized_original": true,
+    "original_css_unchanged": true,
+    "added_effects_hidden_from_print": true,
+    "enhancement_js_syntax_checked": true
+  },
+  {
+    "file": "会客厅-Demo1.0-产品介绍.html",
+    "sanitized_original_sha256": "8546a68b96578c3c5dfe05cf27e21465818d34baa648e0b28c3517c2c3730b37",
+    "sanitized_original_exactly_recovered_after_removing_added_blocks": true,
+    "functional_scripts_unchanged_from_sanitized_original": true,
+    "original_css_unchanged": true,
+    "added_effects_hidden_from_print": true,
+    "enhancement_js_syntax_checked": true
+  }
+]

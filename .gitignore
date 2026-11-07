@@ -1,0 +1,25 @@
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+private/
+local-config/
+local-config.*
+*.local
+
+# Unpublished photography is not included in the public demo
+assets/*.jpg
+assets/*.jpeg
+assets/*.JPG
+assets/*.JPEG
+
+# Local tools and caches
+node_modules/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.DS_Store
+*.log
+*.tmp
+screenshots/

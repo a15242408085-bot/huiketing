@@ -25,11 +25,14 @@
     const caption = document.createElement('figcaption'), credit = document.createElement('small');
     figure.append(large, caption, credit); dialog.append(close, figure); document.body.append(dialog);
     const directions = [[-.78,-.54],[.30,-.70],[.83,-.04],[-.72,.29],[.27,.73],[-.25,-.80],[.83,.65],[-.70,.76]];
+    /* Travel-date stamps on each floating photo, like old film-camera corners. */
+    const dateStamps = ['2023.11 深秋','2024.01 冬末','2023.10 初秋','2024.04 春','2024.06 初夏','2023.09 秋'];
     const cards = items.map(function (item, i) {
       const button = document.createElement('button'); button.type = 'button'; button.className = 'hk-contact-photo';
       button.setAttribute('aria-label', '查看' + item.title);
       const image = document.createElement('img'); image.src = item.src; image.alt = item.alt || item.title; image.decoding = 'async';
-      button.append(image); field.append(button);
+      const stamp = document.createElement('span'); stamp.className = 'hk-contact-photo__date'; stamp.textContent = dateStamps[i % dateStamps.length];
+      button.append(image, stamp); field.append(button);
       const card = {button:button, item:item, progress:(i + .8) / items.length, direction:directions[i % directions.length]};
       button.addEventListener('pointerenter', function () { hovered = i; });
       button.addEventListener('pointerleave', function () { if (hovered === i) hovered = -1; });

@@ -1269,6 +1269,16 @@
 @media screen and (max-width:420px) { .flow-intro.hk-with-contact-sheet { min-height:460px; } }
 @media print { .hk-contact-sheet,.hk-photo-dialog { display:none!important; } }
 
+/* Travel date stamp on floating contact-sheet photos, like a film-camera corner. */
+.hk-contact-photo { overflow:hidden; }
+.hk-contact-photo__date {
+  position:absolute; right:8px; bottom:6px; z-index:2;
+  font-family: var(--mono, "IBM Plex Mono", monospace);
+  font-size: 10px; letter-spacing: .08em; line-height: 1;
+  color: rgba(255,255,255,.88); text-shadow: 0 1px 3px rgba(0,0,0,.55);
+  pointer-events:none; user-select:none;
+}
+
 /* Load last. Shared ink-teal palette; paint properties only. */
 @media screen {
   :root {

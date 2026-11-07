@@ -72,7 +72,10 @@
     if (nextTown !== town || nextTownKey !== townKey) {
       if (townCleanup) townCleanup();
       townCleanup = null; town = nextTown; townKey = nextTownKey;
-      if (town && FX.mountTodayPlanner) { try { townCleanup = FX.mountTodayPlanner(town); } catch (_) {} }
+      var townCleanups = [];
+      if (town && FX.mountTodayPlanner) { try { townCleanups.push(FX.mountTodayPlanner(town)); } catch (_) {} }
+      if (town && FX.mountTownPageVisual) { try { townCleanups.push(FX.mountTownPageVisual(town, data.townPhotography, data.shopPhotos)); } catch (_) {} }
+      townCleanup = function () { townCleanups.forEach(function (fn) { try { fn(); } catch (_) {} }); };
     }
     const nextMerchant = document.querySelector('.merchant-workbench');
     if (nextMerchant !== merchant) {

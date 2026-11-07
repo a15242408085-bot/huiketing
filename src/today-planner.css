@@ -208,6 +208,82 @@
   .hk-today-planner { display: none !important; }
 }
 
+/* === 视觉优化（接手 Codex 未完成的 UI 建议，不动功能） === */
+/* 处境卡箭头 → 明确按钮：保留 span，仅改视觉 */
+.hk-today-planner .hk-today-card__arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  position: static;
+  margin-top: auto;
+  padding: 6px 12px 6px 14px;
+  border: 1px solid var(--today-primary);
+  color: var(--today-primary);
+  background: #fff;
+  font-family: var(--sans, sans-serif);
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: .04em;
+  visibility: visible !important;
+}
+.hk-today-card:hover .hk-today-card__arrow {
+  background: var(--today-primary);
+  color: #fbfbf8;
+}
+.hk-today-card[aria-pressed="true"] .hk-today-card__arrow {
+  visibility: hidden !important;
+}
+.hk-today-card { justify-content: flex-start; }
+.hk-today-card__copy { flex: 1 1 auto; }
+
+/* 原原型底部处境列表：与上方六卡重复，降级为"一览/目录"视觉，不抢主选择 */
+.town-scenarios:has(~ .hk-today-planner),
+.town-scenario-list {
+  margin-top: 18px;
+  padding: 14px 18px;
+  border: 1px dashed var(--today-line, #cad2d0) !important;
+  background: #f6f6f1 !important;
+  border-radius: 10px;
+}
+.town-scenario-list {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 0;
+}
+.town-scenario-list button {
+  min-height: 72px !important;
+  padding: 12px 14px !important;
+  background: transparent !important;
+}
+.town-scenario-list button > span {
+  font-size: 14px !important;
+  line-height: 1.4;
+}
+.town-scenario-list button p {
+  font-size: 10px !important;
+  margin-top: 4px !important;
+  line-height: 1.5 !important;
+}
+.town-scenario-list button svg {
+  top: 12px !important;
+  right: 12px !important;
+  width: 14px !important;
+  height: 14px !important;
+}
+.town-scenario-list button:hover {
+  background: #eef3f1 !important;
+  color: var(--today-primary) !important;
+}
+.town-scenario-list button:hover p,
+.town-scenario-list button:hover svg {
+  color: var(--today-muted) !important;
+}
+@media (max-width: 860px) {
+  .town-scenario-list { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+@media print {
+  .town-scenario-list { display: none !important; }
+}
+
 /* Paper overview: visual hierarchy follows the supplied two-column reference. */
 @media screen {
   .hk-today-planner {

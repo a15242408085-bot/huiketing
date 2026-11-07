@@ -276,3 +276,39 @@
   .hk-owner-axis { margin-right: 33px; }
   .hk-owner-panel h2 { font-size: 23px; }
 }
+
+/* === 视觉优化（接手 Codex 未完成的 UI 建议，不动功能） === */
+/* 长页面章节节奏：面板留白 + 章节序号 + 更强分节 */
+.hk-owner-dashboard { gap: 20px; }
+.hk-owner-grid { gap: 22px; row-gap: 22px; }
+.hk-owner-panel {
+  position: relative;
+  padding: 26px 24px;
+  scroll-margin-top: 80px;
+}
+.hk-owner-panel__header {
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid #ececea;
+}
+.hk-owner-panel h2 {
+  font-size: 21px;
+  letter-spacing: -0.01em;
+}
+/* 顶部 summary 卡片：数字更有分量 */
+.hk-owner-summary {
+  padding: 24px 26px;
+  gap: 20px;
+}
+.hk-owner-summary__metric strong {
+  font-size: clamp(32px, 3.4vw, 44px);
+}
+/* 优先补充面板：左侧红边加强，但不刺眼 */
+.hk-owner-priorities {
+  border-left: 3px solid #a53e32;
+  background: #fffdf9;
+}
+@media (max-width: 900px) {
+  .hk-owner-panel { padding: 20px 18px; }
+  .hk-owner-panel h2 { font-size: 19px; }
+}

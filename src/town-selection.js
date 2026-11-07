@@ -47,4 +47,42 @@
     card.setAttribute('data-hk-town-photo', '');
     return function () { figure.remove(); card.removeAttribute('data-hk-town-photo'); };
   };
+
+  // 云溪镇详情页：hero 深绿块换照片 + 三店卡顶部补参考图
+  FX.mountTownPageVisual = function (townPage, townPhoto, shopPhotos) {
+    if (!townPage || !townPage.isConnected) return function () {};
+    var cleaned = [];
+    // 1) hero 背景照片
+    var hero = townPage.querySelector('.town-hero');
+    if (hero && townPhoto && townPhoto.src) {
+      hero.setAttribute('data-hk-hero-photo', '');
+      hero.style.backgroundImage = 'linear-gradient(100deg, rgba(23,63,68,0.92) 0%, rgba(23,63,68,0.78) 38%, rgba(23,63,68,0.45) 70%, rgba(23,63,68,0.25) 100%), url("' + townPhoto.src + '")';
+      hero.style.backgroundSize = 'cover';
+      hero.style.backgroundPosition = 'center right';
+      cleaned.push(function () {
+        hero.removeAttribute('data-hk-hero-photo');
+        hero.style.backgroundImage = '';
+        hero.style.backgroundSize = '';
+        hero.style.backgroundPosition = '';
+      });
+    }
+    // 2) 三店卡顶部参考图（按店匹配）
+    var shops = Array.prototype.slice.call(townPage.querySelectorAll('.town-shop-grid .town-shop'));
+    var shopKeys = ['qiaoxi-tea', 'ayuan-noodles', 'nanzha-bamboo'];
+    shops.forEach(function (shop, idx) {
+      var key = shopKeys[idx];
+      var photoSrc = shopPhotos && shopPhotos[key];
+      if (!photoSrc) return;
+      var figure = document.createElement('figure');
+      figure.className = 'hk-shop-photo';
+      var image = document.createElement('img');
+      image.src = photoSrc;
+      image.alt = '';
+      image.decoding = 'async';
+      figure.appendChild(image);
+      shop.insertBefore(figure, shop.firstChild);
+      cleaned.push(function () { figure.remove(); });
+    });
+    return function () { cleaned.forEach(function (fn) { try { fn(); } catch (_) {} }); };
+  };
 }());

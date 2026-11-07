@@ -50,8 +50,11 @@ payload["scenicPhotos"] = [dict(item, src=data_url(ROOT / item["asset"])) for it
 payload["photos"] = []
 
 
+payload["townPhotography"] = {"src": data_url(ROOT / "assets/town-yunxi-user.jpg"), "source": "用户提供摄影"}
+
+
 script_files = ["silk-title.js", "landscape-motion.js", "contact-sheet.js",
-                "depth-cards.js", "home-scroll.js", "bamboo-fog.js", "entry-icons.js", "entry-art.js", "home-polish.js", "today-planner.js", "owner-dashboard.js", "room-editorial.js", "controller.js"]
+                "depth-cards.js", "home-scroll.js", "bamboo-fog.js", "entry-icons.js", "entry-art.js", "home-polish.js", "today-planner.js", "owner-dashboard.js", "room-editorial.js", "town-selection.js", "controller.js"]
 node = shutil.which("node")
 if node:
     for name in script_files:
@@ -60,7 +63,7 @@ else:
     print("Node.js is optional; JavaScript syntax checks were skipped.")
 scripts = "\n\n".join((ROOT / "src" / name).read_text(encoding="utf-8") for name in script_files)
 css_files = ["base-theme.css", "green-theme.css", "depth-cards.css",
-             "landscape-motion.css", "silk-title.css", "home-scroll.css", "bamboo-fog.css", "entry-art.css", "home-polish.css", "today-planner.css", "owner-dashboard.css", "room-editorial.css", "brand-theme.css"]
+             "landscape-motion.css", "silk-title.css", "home-scroll.css", "bamboo-fog.css", "entry-art.css", "home-polish.css", "today-planner.css", "owner-dashboard.css", "room-editorial.css", "brand-theme.css", "town-selection.css"]
 main_css = "\n\n".join((ROOT / "src" / name).read_text(encoding="utf-8") for name in css_files)
 main_css = main_css.replace('url("./assets/bamboo-water-town.png")', "var(--hk-bamboo-image, none)")
 assert "./assets/" not in main_css

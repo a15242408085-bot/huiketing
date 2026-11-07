@@ -1,0 +1,110 @@
+/* Town directory: preserve the original links, content and document order. */
+@media screen {
+  main:has(> .town-list) > .flow-intro {
+    gap: 32px;
+    padding-block: clamp(32px, 4vw, 56px) 32px;
+    border-bottom-color: #d4dfda;
+  }
+  main:has(> .town-list) .flow-intro h1 {
+    font-size: clamp(44px, 5.2vw, 76px);
+    line-height: 1.16;
+    letter-spacing: -.045em;
+    margin-block: 16px 20px;
+  }
+  main:has(> .town-list) .flow-intro p {
+    max-width: 640px;
+    font-size: 15px;
+    line-height: 1.85;
+  }
+  main:has(> .town-list) .journey-steps {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 16px #173f4405;
+  }
+  main:has(> .town-list) .journey-step { min-width: 96px; padding: 14px 18px; }
+  main:has(> .town-list) .journey-step strong { font-size: 14px; }
+  main:has(> .town-list) .town-list { margin-top: 30px; }
+  main:has(> .town-list) .town-card {
+    grid-template-columns: minmax(160px, 18%) minmax(0, 1fr);
+    border: 1px solid #d4dfda;
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+    isolation: isolate;
+    box-shadow: 0 14px 44px #173f4407;
+  }
+  main:has(> .town-list) .town-card__folio {
+    min-height: 340px;
+    padding: 28px;
+    background-image: linear-gradient(150deg, #ffffff09, #071e220d);
+  }
+  main:has(> .town-list) .town-card__folio .small-caps { font-size: 10px; letter-spacing: .14em; }
+  main:has(> .town-list) .town-card__vertical { left: 28px; top: 100px; font-size: 16px; }
+  main:has(> .town-list) .town-card__body { padding: clamp(24px, 3vw, 40px); min-width: 0; }
+  main:has(> .town-list) .town-card__heading h2 {
+    font-size: clamp(36px, 3.6vw, 52px);
+    line-height: 1.2;
+    letter-spacing: -.035em;
+    margin-block: 18px 10px;
+    color: #173f44;
+  }
+  main:has(> .town-list) .town-card__subtitle { margin: 0; font-size: 16px; }
+  main:has(> .town-list) .town-card__number { font-size: 48px; color: #cbd8d3; }
+  main:has(> .town-list) .town-card__description { margin-top: 24px; font-size: 15px; line-height: 1.9; }
+  main:has(> .town-list) .town-card blockquote {
+    margin-block: 18px 28px;
+    padding-left: 16px;
+    border-left: 2px solid #a5bdb1;
+    font-size: 18px;
+    line-height: 1.8;
+  }
+  main:has(> .town-list) .town-card__footer { padding-top: 20px; gap: 16px; flex-wrap: wrap; }
+  main:has(> .town-list) .town-card__footer > div { flex-wrap: wrap; gap: 10px; font-size: 12px; }
+  main:has(> .town-list) .town-card__footer > div span {
+    padding: 7px 10px;
+    border-radius: 7px;
+    background: #edf2ee;
+    color: #506e68;
+  }
+  main:has(> .town-list) .town-card__footer .button { min-height: 48px; padding-inline: 24px; }
+  .town-card[data-hk-town-photo] .hk-town-photo {
+    position: absolute; inset: 0 0 0 18%; margin: 0; z-index: -1;
+  }
+  .hk-town-photo img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 56%; }
+  .town-card[data-hk-town-photo] .hk-town-photo::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(90deg, #fbfbf8 0%, #fbfbf8f5 30%, #fbfbf8d9 48%, #fbfbf83b 75%, #fbfbf800 100%);
+  }
+  .hk-town-photo figcaption {
+    position: absolute; right: 20px; top: 20px; z-index: 1;
+    padding: 7px 10px; background: #173f44bd; color: #fffdf4;
+    border: 1px solid #ffffff40; border-radius: 7px; font-size: 11px;
+  }
+  main:has(> .town-list) .town-card[data-hk-town-photo] .town-card__body { background: transparent; }
+  .town-card[data-hk-town-photo] .town-card__description,
+  .town-card[data-hk-town-photo] blockquote { max-width: 62%; }
+  .town-card[data-hk-town-photo] .town-card__number { visibility: hidden; }
+  .town-card[data-hk-town-photo] .town-card__footer { border-color: #bdcbc5; }
+}
+@media screen and (max-width: 860px) {
+  main:has(> .town-list) > .flow-intro { grid-template-columns: 1fr; gap: 24px; }
+  main:has(> .town-list) .journey-steps { width: 100%; }
+  main:has(> .town-list) .journey-step { min-width: 0; flex: 1; }
+  main:has(> .town-list) .town-card { grid-template-columns: 1fr; }
+  main:has(> .town-list) .town-card__folio { min-height: 100px; padding: 20px 24px; }
+  main:has(> .town-list) .town-card__folio .seal { position: absolute; right: 24px; top: 16px; }
+  main:has(> .town-list) .town-card__vertical { position: static; writing-mode: horizontal-tb; margin-top: 14px; font-size: 13px; }
+  main:has(> .town-list) .town-card__body { padding: 24px; }
+  main:has(> .town-list) .town-card__description { font-size: 14px; }
+  main:has(> .town-list) .town-card blockquote { font-size: 16px; }
+  main:has(> .town-list) .town-card__footer .button { width: 100%; }
+  .town-card[data-hk-town-photo] .hk-town-photo { position: relative; inset: auto; height: 220px; z-index: 0; }
+  .town-card[data-hk-town-photo] .hk-town-photo::after { background: linear-gradient(180deg, #102e3359, transparent 80%); }
+  .town-card[data-hk-town-photo] .hk-town-photo figcaption { top: auto; right: 12px; bottom: 12px; font-size: 10px; }
+  main:has(> .town-list) .town-card[data-hk-town-photo] .town-card__folio { position: absolute; inset: 0 auto auto 0; width: 140px; height: 220px; box-sizing: border-box; background: #173f449c; }
+  main:has(> .town-list) .town-card[data-hk-town-photo] .town-card__folio .seal { top: auto; bottom: 18px; right: 18px; }
+  .town-card[data-hk-town-photo] .town-card__description,
+  .town-card[data-hk-town-photo] blockquote { max-width: none; }
+  main:has(> .town-list) .town-card[data-hk-town-photo] .town-card__body { background: var(--paper); }
+}
+@media print { .hk-town-photo { display: none !important; } }

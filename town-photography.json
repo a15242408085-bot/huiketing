@@ -1,0 +1,7 @@
+{
+  "asset": "assets/town-yunxi-user.jpg",
+  "source": "用户于本次对话提供并指定用于云溪镇卡片背景",
+  "location": "用户未提供地理位置，不作独立地点认证",
+  "processing": "保留构图，缩放至最长边2200px并编码为JPEG以便网页加载",
+  "sha256": "d3b1ec8ff827d32957fdfd2d30bfa2426eb813449aa225945df93db38f85854f"
+}

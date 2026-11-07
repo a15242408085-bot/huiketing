@@ -50,12 +50,17 @@ payload["scenicPhotos"] = [dict(item, src=data_url(ROOT / item["asset"])) for it
 payload["photos"] = []
 
 
-payload["townPhotography"] = {"src": data_url(ROOT / "assets/town-yunxi-user.jpg"), "source": "用户提供摄影"}
+payload["townPhotography"] = {
+    "yunxi": {"src": data_url(ROOT / "assets/town-yunxi-user.jpg"), "source": "用户提供摄影"},
+    "shiao": {"src": data_url(ROOT / "assets/mountain-photos/shiao-town.jpg"), "source": "半山石阶村落视觉参考"},
+}
 
 payload["shopPhotos"] = {
     "qiaoxi-tea": data_url(ROOT / "assets/shop-photos/qiaoxi-tea.jpg"),
     "ayuan-noodles": data_url(ROOT / "assets/shop-photos/ayuan-noodles.jpg"),
     "nanzha-bamboo": data_url(ROOT / "assets/shop-photos/nanzha-bamboo.jpg"),
+    "banshan-tofu": data_url(ROOT / "assets/mountain-photos/banshan-tofu.jpg"),
+    "songfeng-tea": data_url(ROOT / "assets/mountain-photos/songfeng-tea.jpg"),
 }
 
 heading_photography = json.loads((ROOT / "region-heading-photography.json").read_text(encoding="utf-8"))

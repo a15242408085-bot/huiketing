@@ -13,5 +13,14 @@
     "visual_review": "目视核验：白墙、灰瓦、石板街巷、淡红灯笼；无可见水印；未移除水印或改动图像像素",
     "checked_on": "2026-11-07",
     "sha256": "7820cc64d40ca959d65209693c76d42c4c67c63855cc9268cf3f05216083bcaf"
+  },
+  "mountain": {
+    "asset": "assets/mountain-photos/region-tea-mountain.jpg",
+    "title": "晨雾梯田茶园",
+    "photographer": "视觉参考素材",
+    "source": "参考图",
+    "usage": "山野茶路标题区氛围背景，不代表虚构石岙镇实景",
+    "visual_review": "梯田、晨雾、茶山层次；无水印",
+    "checked_on": "2026-11-07"
   }
 }

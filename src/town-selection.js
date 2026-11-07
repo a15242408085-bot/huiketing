@@ -1,7 +1,14 @@
 (function () {
   'use strict';
   var FX = window.HKVisualFX = window.HKVisualFX || {};
-  FX.mountRegionHeading = function (intro, photo) {
+
+  // 各地区 hero 渐变颜色（保证文字可读）
+  var HERO_GRADIENTS = {
+    jiangnan: 'linear-gradient(100deg, rgba(23,63,68,0.92) 0%, rgba(23,63,68,0.78) 38%, rgba(23,63,68,0.45) 70%, rgba(23,63,68,0.25) 100%)',
+    mountain: 'linear-gradient(100deg, rgba(45,58,38,0.92) 0%, rgba(45,58,38,0.78) 38%, rgba(45,58,38,0.45) 70%, rgba(45,58,38,0.25) 100%)'
+  };
+
+  FX.mountRegionHeading = function (intro, photo, regionKey) {
     if (!intro || !photo || !photo.src) return function () {};
     var background = document.createElement('div');
     background.className = 'hk-region-heading-photo';
@@ -12,8 +19,7 @@
     image.decoding = 'async';
     background.appendChild(image);
     intro.prepend(background);
-    intro.setAttribute('data-hk-region-heading', 'jiangnan');
-    // Bleed only the photograph to the viewport; leave the content grid in place.
+    intro.setAttribute('data-hk-region-heading', regionKey || 'jiangnan');
     function measureBackground() {
       if (!intro.isConnected) return;
       background.style.left = (-intro.getBoundingClientRect().left).toFixed(3) + 'px';
@@ -27,36 +33,51 @@
       intro.removeAttribute('data-hk-region-heading');
     };
   };
-  FX.mountTownSelection = function (list, photo) {
-    if (!list || !photo || !photo.src) return function () {};
-    var card = Array.from(list.querySelectorAll('.town-card')).find(function (item) {
-      var title = item.querySelector('h2');
-      return title && title.textContent.trim() === '云溪镇';
+
+  // 选小镇页：给当前地区的小镇卡片挂照片
+  FX.mountTownSelection = function (list, photoMap, regionKey) {
+    if (!list || !photoMap) return function () {};
+    var cleaned = [];
+    // 每个地区对应的小镇标题
+    var townTitles = {
+      jiangnan: {'云溪镇': photoMap.yunxi},
+      mountain: {'石岙镇': photoMap.shiao}
+    };
+    var titles = townTitles[regionKey] || {};
+    Object.keys(titles).forEach(function (title) {
+      var photo = titles[title];
+      if (!photo || !photo.src) return;
+      var card = Array.from(list.querySelectorAll('.town-card')).find(function (item) {
+        var h2 = item.querySelector('h2');
+        return h2 && h2.textContent.trim() === title;
+      });
+      if (!card) return;
+      var figure = document.createElement('figure');
+      figure.className = 'hk-town-photo';
+      var image = document.createElement('img');
+      image.src = photo.src;
+      image.alt = '';
+      image.decoding = 'async';
+      var caption = document.createElement('figcaption');
+      caption.textContent = photo.source || '地方视觉参考';
+      figure.append(image, caption);
+      card.prepend(figure);
+      card.setAttribute('data-hk-town-photo', '');
+      cleaned.push(function () { figure.remove(); card.removeAttribute('data-hk-town-photo'); });
     });
-    if (!card) return function () {};
-    var figure = document.createElement('figure');
-    figure.className = 'hk-town-photo';
-    var image = document.createElement('img');
-    image.src = photo.src;
-    image.alt = '用户提供的河畔落日照片，岸边建筑与夕阳倒映在河面上';
-    image.decoding = 'async';
-    var caption = document.createElement('figcaption');
-    caption.textContent = '河畔日落 · 用户提供摄影';
-    figure.append(image, caption);
-    card.prepend(figure);
-    card.setAttribute('data-hk-town-photo', '');
-    return function () { figure.remove(); card.removeAttribute('data-hk-town-photo'); };
+    return function () { cleaned.forEach(function (fn) { try { fn(); } catch (_) {} }); };
   };
 
-  // 云溪镇详情页：hero 深绿块换照片 + 三店卡顶部补参考图
-  FX.mountTownPageVisual = function (townPage, townPhoto, shopPhotos) {
+  // 小镇详情页：hero 背景照片 + 店卡顶部参考图（按店铺 ID 匹配）
+  FX.mountTownPageVisual = function (townPage, townPhoto, shopPhotos, regionKey) {
     if (!townPage || !townPage.isConnected) return function () {};
     var cleaned = [];
     // 1) hero 背景照片
     var hero = townPage.querySelector('.town-hero');
     if (hero && townPhoto && townPhoto.src) {
+      var gradient = HERO_GRADIENTS[regionKey] || HERO_GRADIENTS.jiangnan;
       hero.setAttribute('data-hk-hero-photo', '');
-      hero.style.backgroundImage = 'linear-gradient(100deg, rgba(23,63,68,0.92) 0%, rgba(23,63,68,0.78) 38%, rgba(23,63,68,0.45) 70%, rgba(23,63,68,0.25) 100%), url("' + townPhoto.src + '")';
+      hero.style.backgroundImage = gradient + ', url("' + townPhoto.src + '")';
       hero.style.backgroundSize = 'cover';
       hero.style.backgroundPosition = 'center right';
       cleaned.push(function () {
@@ -66,12 +87,17 @@
         hero.style.backgroundPosition = '';
       });
     }
-    // 2) 三店卡顶部参考图（按店匹配）
+    // 2) 店卡顶部参考图（按店铺 ID 匹配，不再硬编码顺序）
     var shops = Array.prototype.slice.call(townPage.querySelectorAll('.town-shop-grid .town-shop'));
-    var shopKeys = ['qiaoxi-tea', 'ayuan-noodles', 'nanzha-bamboo'];
-    shops.forEach(function (shop, idx) {
-      var key = shopKeys[idx];
-      var photoSrc = shopPhotos && shopPhotos[key];
+    shops.forEach(function (shop) {
+      // 从卡片里找店铺链接，href 里包含店铺 ID
+      var link = shop.querySelector('a[href*="#/room/"]');
+      if (!link) return;
+      var href = link.getAttribute('href') || '';
+      var m = /#\/room\/[^/]+\/([a-z0-9-]+)/.exec(href);
+      if (!m) return;
+      var shopKey = m[1];
+      var photoSrc = shopPhotos && shopPhotos[shopKey];
       if (!photoSrc) return;
       var figure = document.createElement('figure');
       figure.className = 'hk-shop-photo';

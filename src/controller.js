@@ -53,20 +53,22 @@
     const nextTown = document.querySelector('.town-page');
     const nextTownList = document.querySelector('.town-list');
     const nextRegionHeadingKey = location.hash.split('?')[0];
-    const nextRegionHeading = /^#\/visit\/jiangnan\/?$/.test(nextRegionHeadingKey) && nextTownList
+    const regionMatch = /^#\/visit\/(jiangnan|mountain)\/?$/.exec(nextRegionHeadingKey);
+    const nextRegionHeading = regionMatch && nextTownList
       ? nextTownList.parentElement.querySelector(':scope > .flow-intro') : null;
+    const regionKey = regionMatch ? regionMatch[1] : null;
     if (regionHeading !== nextRegionHeading || regionHeadingKey !== nextRegionHeadingKey) {
       if (regionHeadingCleanup) regionHeadingCleanup();
       regionHeading = nextRegionHeading; regionHeadingKey = nextRegionHeadingKey; regionHeadingCleanup = null;
       if (regionHeading && FX.mountRegionHeading) {
-        regionHeadingCleanup = FX.mountRegionHeading(regionHeading, data.regionHeadingPhotography && data.regionHeadingPhotography.jiangnan);
+        regionHeadingCleanup = FX.mountRegionHeading(regionHeading, data.regionHeadingPhotography && data.regionHeadingPhotography[regionKey]);
       }
     }
     const nextTownListKey = nextTownList ? nextRegionHeadingKey : '';
     if (nextTownList !== townList || townListKey !== nextTownListKey) {
       if (townListCleanup) townListCleanup();
       townList = nextTownList; townListKey = nextTownListKey; townListCleanup = null;
-      if (townList && FX.mountTownSelection) townListCleanup = FX.mountTownSelection(townList, data.townPhotography);
+      if (townList && FX.mountTownSelection) townListCleanup = FX.mountTownSelection(townList, data.townPhotography, regionKey);
     }
     const nextTownKey = nextTown ? location.hash : '';
     if (nextTown !== town || nextTownKey !== townKey) {
@@ -74,7 +76,11 @@
       townCleanup = null; town = nextTown; townKey = nextTownKey;
       var townCleanups = [];
       if (town && FX.mountTodayPlanner) { try { townCleanups.push(FX.mountTodayPlanner(town)); } catch (_) {} }
-      if (town && FX.mountTownPageVisual) { try { townCleanups.push(FX.mountTownPageVisual(town, data.townPhotography, data.shopPhotos)); } catch (_) {} }
+      // 从页面里取当前小镇 ID（URL hash 里）
+      var townIdMatch = /#\/visit\/[^/]+\/([^/?#]+)/.exec(nextTownKey);
+      var currentTownId = townIdMatch ? townIdMatch[1] : null;
+      var currentTownPhoto = (data.townPhotography && currentTownId && data.townPhotography[currentTownId]) || null;
+      if (town && FX.mountTownPageVisual) { try { townCleanups.push(FX.mountTownPageVisual(town, currentTownPhoto, data.shopPhotos, regionKey)); } catch (_) {} }
       townCleanup = function () { townCleanups.forEach(function (fn) { try { fn(); } catch (_) {} }); };
     }
     const nextMerchant = document.querySelector('.merchant-workbench');

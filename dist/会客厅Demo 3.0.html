@@ -481,6 +481,8 @@ window.__DEEPSEEK_MODEL__="deepseek-flash";</script>
   .cover-page[data-hk-home-scroll] {
     position: relative;
     isolation: isolate;
+    /* The header supplies the top space; start the image immediately below it. */
+    padding-top: 0;
   }
   .cover-page[data-hk-home-scroll]::before {
     content: "";

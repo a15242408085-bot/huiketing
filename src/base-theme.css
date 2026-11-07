@@ -160,3 +160,14 @@
     background-position: 35% center;
   }
 }
+
+/* Footer: 去掉底部灰条，融入页面 */
+.global-footer {
+  background: transparent !important;
+  border-top-color: #e8e3d8 !important;
+  padding: 14px 0 20px !important;
+  margin-top: 0 !important;
+}
+.app-shell {
+  background-clip: border-box;
+}

@@ -1,25 +1,23 @@
-/* Independent native-scroll photographic story. No source from the reference site is used. */
+/* Native scrolling: the existing region directory covers the pinned homepage. */
 (function registerHomeScroll() {
   'use strict';
 
   var modules = window.HKVisualFX = window.HKVisualFX || {};
   var mounted = new WeakMap();
-  var clamp = function (value, lo, hi) { return Math.max(lo, Math.min(hi, value)); };
   var smooth = function (lo, hi, value) {
-    var n = clamp((value - lo) / (hi - lo), 0, 1);
+    var n = Math.max(0, Math.min(1, (value - lo) / (hi - lo)));
     return n * n * (3 - 2 * n);
   };
 
-  modules.mountHomeScroll = function mountHomeScroll(home, homeScenes) {
+  modules.mountHomeScroll = function mountHomeScroll(home) {
     if (!home || !home.isConnected) return function () {};
     if (mounted.has(home)) mounted.get(home)();
     var hero = home.querySelector('.cover-hero');
+    var directory = home.querySelector('.region-preview');
     var shell = home.closest('.app-shell');
-    if (!hero || !shell || hero.parentNode !== home) return function () {};
+    if (!hero || !directory || !shell || hero.parentNode !== home || directory.parentNode !== home) return function () {};
 
     var disposed = false, printing = false, raf = 0, measureRaf = 0;
-    var lastPaint = -Infinity, lastTime = 0, elapsed = 0;
-    var paused = false, currentCaption = -1;
     var media = window.matchMedia('(prefers-reduced-motion: reduce)');
     var header = shell.querySelector(':scope > .site-header');
     var headerProperties = ['opacity', 'pointer-events'];
@@ -32,35 +30,18 @@
     if (!Number.isFinite(baseHeaderOpacity)) baseHeaderOpacity = 1;
     var lastHeaderOpacity = null, lastHeaderHidden = null;
     var priorMarker = home.getAttribute('data-hk-home-scroll');
-    var variableNames = ['--hk-home-gutter', '--hk-home-pin-top', '--hk-home-stage-bg-h', '--hk-home-story-gap'];
+    var variableNames = ['--hk-home-gutter', '--hk-home-pin-top', '--hk-home-stage-bg-h', '--hk-home-panel-gap'];
     var priorVariables = variableNames.map(function (name) {
       return { name: name, value: home.style.getPropertyValue(name), priority: home.style.getPropertyPriority(name) };
     });
-    var originalNext = hero.nextSibling;
+    var directoryNext = directory.nextSibling;
     var sourceStyle = window.getComputedStyle(shell);
     var sourceBackground = sourceStyle.backgroundImage;
-    var fallbackMatch = /url\((?:"([^"]*)"|'([^']*)'|([^)]*))\)/.exec(sourceBackground);
-    var fallbackSource = fallbackMatch ? (fallbackMatch[1] || fallbackMatch[2] || fallbackMatch[3] || '').trim() : '';
-    var scenes = (Array.isArray(homeScenes) ? homeScenes : []).filter(function (item) {
-      return item && typeof item.src === 'string' && item.src.length > 0;
-    }).slice(0, 2);
-    if (!scenes.length) scenes = [{ src: fallbackSource, alt: '竹林与水乡氛围影像', title: '竹影与水岸', source_label: '氛围影像' }];
 
     var sequence = document.createElement('div');
     var stage = document.createElement('div');
     var stageBackground = document.createElement('div');
-    var story = document.createElement('section');
-    var figure = document.createElement('figure');
-    var veil = document.createElement('div');
-    var copy = document.createElement('div');
-    var heading = document.createElement('h2');
-    var firstLine = document.createElement('span');
-    var secondLine = document.createElement('span');
-    var credit = document.createElement('figcaption');
-    var creditTitle = document.createElement('span');
-    var creditSource = document.createElement('a');
-    var pauseButton = document.createElement('button');
-    var imageNodes = [];
+    var panel = document.createElement('div');
     var layerPlacements = [];
     var resizeObserver = null;
     var shellObserver = null;
@@ -74,72 +55,18 @@
     stageBackground.style.backgroundSize = sourceStyle.backgroundSize;
     stageBackground.style.backgroundPosition = sourceStyle.backgroundPosition;
     stageBackground.style.backgroundRepeat = sourceStyle.backgroundRepeat;
-    story.className = 'hk-home-story';
-    story.setAttribute('aria-label', '小镇空间影像');
-    figure.className = 'hk-home-story__figure';
-    veil.className = 'hk-home-story__veil';
-    veil.setAttribute('aria-hidden', 'true');
-    copy.className = 'hk-home-story__copy';
-    heading.className = 'hk-home-story__heading';
-    firstLine.textContent = '竹影之间';
-    secondLine.textContent = '慢慢走进小镇';
-    heading.appendChild(firstLine);
-    heading.appendChild(secondLine);
-    copy.appendChild(heading);
-    credit.className = 'hk-home-story__credit';
-    creditSource.target = '_blank';
-    creditSource.rel = 'noopener noreferrer';
-    credit.appendChild(creditTitle);
-    credit.appendChild(creditSource);
-    pauseButton.className = 'hk-home-story__pause';
-    pauseButton.type = 'button';
-    pauseButton.textContent = '暂停画面';
-    pauseButton.setAttribute('aria-pressed', 'false');
-
-    scenes.forEach(function (scene, index) {
-      var img = document.createElement('img');
-      img.className = 'hk-home-story__image';
-      img.alt = '';
-      img.setAttribute('aria-hidden', 'true');
-      img.decoding = 'async';
-      img.draggable = false;
-      img.style.opacity = index === 0 ? '1' : '0';
-      img.onerror = function () {
-        if (disposed) return;
-        if (fallbackSource && img.getAttribute('src') !== fallbackSource) {
-          scenes[index] = {
-            src: fallbackSource,
-            alt: 'AI 生成的竹林与水乡氛围示意图',
-            title: '竹林水乡',
-            source_label: '会客厅 · AI 生成备用示意图'
-          };
-          if (currentCaption === index) {
-            currentCaption = -1;
-            setCaption(index);
-          }
-          img.src = fallbackSource;
-        }
-        else img.style.visibility = 'hidden';
-      };
-      img.src = scene.src === '@bamboo' ? fallbackSource : (scene.src || fallbackSource);
-      figure.appendChild(img);
-      imageNodes.push(img);
-    });
-    figure.appendChild(veil);
-    figure.appendChild(credit);
-    story.appendChild(figure);
-    story.appendChild(copy);
-    story.appendChild(pauseButton);
+    panel.className = 'hk-home-directory-panel';
     stage.appendChild(stageBackground);
     home.insertBefore(sequence, hero);
     sequence.appendChild(stage);
     stage.appendChild(hero);
-    sequence.appendChild(story);
+    sequence.appendChild(panel);
+    panel.appendChild(directory);
     home.setAttribute('data-hk-home-scroll', 'natural');
     mounted.set(home, cleanup);
 
     function currentHome() {
-      return !disposed && home.isConnected && hero.isConnected && shell.contains(home);
+      return !disposed && home.isConnected && hero.isConnected && directory.isConnected && shell.contains(home);
     }
 
     function restoreHeaderAttribute(name, value) {
@@ -184,26 +111,6 @@
       }
     }
 
-    function setCaption(index) {
-      if (currentCaption === index) return;
-      currentCaption = index;
-      var scene = scenes[index] || scenes[0];
-      figure.setAttribute('aria-label', scene.alt || scene.title || '小镇空间影像参考');
-      creditTitle.textContent = '空间影像参考' + (scene.title ? ' · ' + scene.title : '');
-      creditSource.textContent = scene.source_label || '图像来源';
-      var valid = false;
-      if (scene.source_page) {
-        try {
-          var url = new URL(scene.source_page, document.baseURI);
-          if (url.protocol === 'https:' || url.protocol === 'http:') {
-            creditSource.href = url.href;
-            valid = true;
-          }
-        } catch (_) {}
-      }
-      if (!valid) creditSource.removeAttribute('href');
-    }
-
     function moveLandscapeLayers() {
       if (!currentHome() || printing) return;
       Array.prototype.slice.call(shell.children).forEach(function (node) {
@@ -237,10 +144,8 @@
       home.style.setProperty('--hk-home-gutter', Math.max(0, (documentWidth - homeWidth) / 2).toFixed(3) + 'px');
       home.style.setProperty('--hk-home-pin-top', pinTop.toFixed(3) + 'px');
       home.style.setProperty('--hk-home-stage-bg-h', Math.max(viewport, heroHeight + pinTop).toFixed(3) + 'px');
-      home.style.setProperty('--hk-home-story-gap', Math.max(0, viewport - sequenceTop - heroHeight).toFixed(3) + 'px');
+      home.style.setProperty('--hk-home-panel-gap', Math.max(0, viewport - sequenceTop - heroHeight).toFixed(3) + 'px');
       home.setAttribute('data-hk-home-scroll', canPin ? 'pin' : 'natural');
-      story.setAttribute('data-hk-motion', media.matches ? 'reduced' : 'enabled');
-      pauseButton.hidden = media.matches || scenes.length < 2;
       var background = window.getComputedStyle(shell);
       stageBackground.style.backgroundImage = background.backgroundImage;
       stageBackground.style.backgroundPosition = background.backgroundPosition;
@@ -258,58 +163,22 @@
     function stopFrame() {
       if (raf) window.cancelAnimationFrame(raf);
       raf = 0;
-      lastTime = 0;
-      lastPaint = -Infinity;
     }
 
     function schedule() {
       if (!disposed && !printing && !raf) raf = window.requestAnimationFrame(frame);
     }
 
-    function frame(now) {
+    function frame() {
       raf = 0;
       if (!currentHome()) { cleanup(); return; }
-      if (printing || document.hidden) { lastTime = 0; return; }
-      if (now - lastPaint < 1000 / 30) { raf = window.requestAnimationFrame(frame); return; }
-      lastPaint = now;
+      if (printing || document.hidden) return;
       fadeHeader();
-      var rect = story.getBoundingClientRect();
-      var viewport = Math.max(1, window.innerHeight);
-      var visible = rect.bottom > 0 && rect.top < viewport;
-      var canAnimate = visible && !media.matches && !paused;
-      if (canAnimate) {
-        if (lastTime) elapsed += Math.min(0.15, Math.max(0, now - lastTime) / 1000);
-        lastTime = now;
-      } else lastTime = 0;
-      var progress = clamp((viewport - rect.top) / Math.max(1, viewport + rect.height), 0, 1);
-      var drift = media.matches ? 0 : (progress - 0.5) * 22;
-      imageNodes.forEach(function (img) {
-        img.style.transform = media.matches ? 'none' : 'translate3d(0,' + drift.toFixed(2) + 'px,0) scale(1.04)';
-      });
-      var mix = 0;
-      if (imageNodes.length > 1 && !media.matches) {
-        var phase = (elapsed / 18) % 2;
-        mix = phase < 1 ? smooth(0.82, 1, phase) : 1 - smooth(0.82, 1, phase - 1);
-        imageNodes[0].style.opacity = (1 - mix).toFixed(4);
-        imageNodes[1].style.opacity = mix.toFixed(4);
-      } else {
-        imageNodes[0].style.opacity = '1';
-        if (imageNodes[1]) imageNodes[1].style.opacity = '0';
-      }
-      setCaption(mix > 0.5 ? 1 : 0);
+      var rect = panel.getBoundingClientRect();
       var covered = home.getAttribute('data-hk-home-scroll') === 'pin' && rect.top <= parseFloat(home.style.getPropertyValue('--hk-home-pin-top'));
       if ('inert' in stage) stage.inert = covered;
       if (covered) stage.setAttribute('aria-hidden', 'true');
       else stage.removeAttribute('aria-hidden');
-      if (canAnimate && imageNodes.length > 1) raf = window.requestAnimationFrame(frame);
-    }
-
-    function onPause() {
-      paused = !paused;
-      pauseButton.textContent = paused ? '继续画面' : '暂停画面';
-      pauseButton.setAttribute('aria-pressed', paused ? 'true' : 'false');
-      stopFrame();
-      schedule();
     }
 
     function onVisibility() {
@@ -324,6 +193,7 @@
       restoreHeader();
       restoreLandscapeLayers();
       if (hero.parentNode === stage) home.insertBefore(hero, sequence);
+      if (directory.parentNode === panel) home.insertBefore(directory, directoryNext && directoryNext.parentNode === home ? directoryNext : sequence.nextSibling);
       sequence.style.display = 'none';
     }
 
@@ -332,6 +202,7 @@
       printing = false;
       sequence.style.display = '';
       if (hero.parentNode === home) stage.appendChild(hero);
+      if (directory.parentNode === home) panel.appendChild(directory);
       moveLandscapeLayers();
       queueMeasure();
     }
@@ -347,18 +218,17 @@
       window.removeEventListener('beforeprint', beforePrint);
       window.removeEventListener('afterprint', afterPrint);
       document.removeEventListener('visibilitychange', onVisibility);
-      pauseButton.removeEventListener('click', onPause);
       if (media.removeEventListener) media.removeEventListener('change', queueMeasure);
       else if (media.removeListener) media.removeListener(queueMeasure);
       if (resizeObserver) resizeObserver.disconnect();
       if (shellObserver) shellObserver.disconnect();
       if (document.fonts && document.fonts.removeEventListener) document.fonts.removeEventListener('loadingdone', queueMeasure);
-      imageNodes.forEach(function (img) { img.onerror = null; img.onload = null; });
       restoreHeader();
       restoreLandscapeLayers();
       if (hero.parentNode === stage) {
-        home.insertBefore(hero, originalNext && originalNext.parentNode === home ? originalNext : sequence);
+        home.insertBefore(hero, sequence);
       }
+      if (directory.parentNode === panel) home.insertBefore(directory, directoryNext && directoryNext.parentNode === home ? directoryNext : sequence.nextSibling);
       sequence.remove();
       if (priorMarker === null) home.removeAttribute('data-hk-home-scroll');
       else home.setAttribute('data-hk-home-scroll', priorMarker);
@@ -369,7 +239,6 @@
       if (mounted.get(home) === cleanup) mounted.delete(home);
     }
 
-    pauseButton.addEventListener('click', onPause);
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', queueMeasure, { passive: true });
     window.addEventListener('beforeprint', beforePrint);
@@ -380,13 +249,13 @@
     if (window.ResizeObserver) {
       resizeObserver = new ResizeObserver(queueMeasure);
       resizeObserver.observe(hero);
+      resizeObserver.observe(directory);
     }
     if (window.MutationObserver) {
       shellObserver = new MutationObserver(moveLandscapeLayers);
       shellObserver.observe(shell, { childList: true });
     }
     if (document.fonts && document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', queueMeasure);
-    setCaption(0);
     measure();
     return cleanup;
   };

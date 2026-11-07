@@ -12,7 +12,6 @@
   }
   data.photos = Array.isArray(data.photos) ? data.photos.map(restoreSharedImage) : [];
   data.coast = restoreSharedImage(data.coast);
-  data.homeScenes = Array.isArray(data.homeScenes) ? data.homeScenes.map(restoreSharedImage) : [];
   let backgroundURL = '';
   try {
     const encoded = data.bamboo.split(',')[1], bytes = atob(encoded), array = new Uint8Array(bytes.length);
@@ -32,7 +31,7 @@
         if (FX.mountHomePolish) { try { homeCleanup.push(FX.mountHomePolish(home)); } catch (_) {} }
         if (title && FX.mountSilk) { try { homeCleanup.push(FX.mountSilk(title)); } catch (_) {} }
         if (shell && FX.mountLandscape) { try { homeCleanup.push(FX.mountLandscape(shell)); } catch (_) {} }
-        if (FX.mountHomeScroll) { try { homeCleanup.push(FX.mountHomeScroll(home, data.homeScenes)); } catch (_) {} }
+        if (FX.mountHomeScroll) { try { homeCleanup.push(FX.mountHomeScroll(home)); } catch (_) {} }
         if (FX.mountBambooFog) { try { homeCleanup.push(FX.mountBambooFog(home, data.foregroundBamboo)); } catch (_) {} }
         if (FX.mountEntryIcons) { try { homeCleanup.push(FX.mountEntryIcons(home)); } catch (_) {} }
         if (FX.mountEntryArt) { try { homeCleanup.push(FX.mountEntryArt(home, data.entryArt)); } catch (_) {} }

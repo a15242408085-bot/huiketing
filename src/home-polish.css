@@ -1,6 +1,5 @@
 /* Homepage only. Card art/layout remains owned by entry-art.css. */
 @media screen {
-  .cover-page[data-hk-home-polish="landing-v1"] .hk-home-story__credit,
   .cover-page[data-hk-home-polish="landing-v1"] .entry-choice__heading > .small-caps {
     display:none;
   }

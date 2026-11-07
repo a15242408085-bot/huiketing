@@ -40,10 +40,6 @@ payload = {
     "photos": [public_image(item) for item in selection["items"]],
     "coast": public_image(selection["coast_reference"]),
 }
-home_scenes = json.loads((ROOT / "home-scenes.json").read_text(encoding="utf-8"))
-payload["homeScenes"] = [public_image(item) | {
-    key: item[key] for key in ["source_label"] if key in item
-} for item in home_scenes["items"]]
 payload["entryArt"] = {"traveler": data_url(ASSETS / "entry-traveler.png"), "storefront": data_url(ASSETS / "entry-storefront.png")}
 payload["foregroundBamboo"] = data_url(ASSETS / "bamboo-real.png")
 room_editorial = json.loads((ROOT / "room-editorial.json").read_text(encoding="utf-8"))
@@ -78,6 +74,7 @@ for name, css in [("会客厅-Demo1.0.html", main_css), ("会客厅-Demo1.0-产�
     if credential_pattern.search(original):
         raise ValueError("A credential-like token remains in original/; do not publish.")
     style = ('\n<style id="hk-visual-theme" media="screen">\n' + css + '\n</style>\n'
+             '<script id="hk-release-title">document.title="会客厅Demo 3.0";</script>\n'
              '<style id="hk-visual-print" media="print">'
              '.hk-contact-sheet,.hk-photo-dialog,.hk-depth-layer,.hk-landscape-layer'
              '{display:none!important}</style>\n').encode("utf-8")
@@ -95,6 +92,8 @@ for name, css in [("会客厅-Demo1.0.html", main_css), ("会客厅-Demo1.0-产�
         assert old_script in result
     assert not credential_pattern.search(result)
     (OUTPUT / name).write_bytes(result)
+    if name == '会客厅-Demo1.0.html':
+        (OUTPUT / '会客厅Demo 3.0.html').write_bytes(result)
     report.append({
         "file": name,
         "sanitized_original_sha256": hashlib.sha256(original).hexdigest(),
@@ -108,12 +107,11 @@ for name, css in [("会客厅-Demo1.0.html", main_css), ("会客厅-Demo1.0-产�
 
 (OUTPUT / "源码校验.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 (OUTPUT / "图片说明.json").write_text(json.dumps(selection, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-(OUTPUT / "首页影像说明.json").write_text(json.dumps(home_scenes, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 (OUTPUT / "打开说明.txt").write_text(
-    "会客厅 · 公开竹绿动效演示\n\n"
-    "双击「会客厅-Demo1.0.html」打开。两份 HTML 保留在同一目录，产品介绍互链即可使用。\n"
+    "会客厅Demo 3.0 · 公开预览\n\n"
+    "双击「会客厅Demo 3.0.html」打开。两份 HTML 保留在同一目录，产品介绍互链即可使用。\n"
     "公开版本包含获许可的六张风景照片、AI 生成与用户提供的设计素材；不代表虚构店铺实景。\n"
-    "首页新增整屏自然影像上滑覆盖效果，再接回原地区目录；影像复用 AI 生成竹林图，不含喜安屋官网照片。\n"
+    "首页由原地区目录直接上滑覆盖首屏，不插入中间整屏图片。\n"
     "样式、图片和增强脚本已内嵌；网络字体不可用时使用系统字体。\n"
     "默认使用原型已有的本地演示回答回退；本仓库不提供在线模型后端。\n"
     "含五店三栏详情、今天怎么过与店主看板；天气和统计均明确为演示。支持减少动态效果，影像流可暂停，照片预览支持 Escape 关闭。\n",

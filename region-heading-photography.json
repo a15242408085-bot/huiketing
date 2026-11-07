@@ -1,0 +1,17 @@
+{
+  "jiangnan": {
+    "asset": "assets/jiangnan-alley-unsplash.jpg",
+    "title": "宏村白墙灰瓦街巷",
+    "photographer": "Austin Curtis",
+    "source": "Unsplash",
+    "source_page": "https://unsplash.com/photos/narrow-alleyway-in-a-historic-chinese-village-KVikzobhwuM",
+    "source_image_url": "https://images.unsplash.com/photo-1768250315742-d90b3fa2d23e?auto=format&fit=max&w=1400&q=85",
+    "license": "Unsplash License",
+    "license_url": "https://unsplash.com/license",
+    "location": "Hongcun, Huangshan, China",
+    "usage": "江南水乡标题区氛围背景，不代表虚构云溪镇实景",
+    "visual_review": "目视核验：白墙、灰瓦、石板街巷、淡红灯笼；无可见水印；未移除水印或改动图像像素",
+    "checked_on": "2026-11-07",
+    "sha256": "7820cc64d40ca959d65209693c76d42c4c67c63855cc9268cf3f05216083bcaf"
+  }
+}

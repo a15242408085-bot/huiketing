@@ -1,6 +1,23 @@
 (function () {
   'use strict';
   var FX = window.HKVisualFX = window.HKVisualFX || {};
+  FX.mountRegionHeading = function (intro, photo) {
+    if (!intro || !photo || !photo.src) return function () {};
+    var background = document.createElement('div');
+    background.className = 'hk-region-heading-photo';
+    background.setAttribute('aria-hidden', 'true');
+    var image = document.createElement('img');
+    image.src = photo.src;
+    image.alt = '';
+    image.decoding = 'async';
+    background.appendChild(image);
+    intro.prepend(background);
+    intro.setAttribute('data-hk-region-heading', 'jiangnan');
+    return function () {
+      background.remove();
+      intro.removeAttribute('data-hk-region-heading');
+    };
+  };
   FX.mountTownSelection = function (list, photo) {
     if (!list || !photo || !photo.src) return function () {};
     var card = Array.from(list.querySelectorAll('.town-card')).find(function (item) {

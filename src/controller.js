@@ -20,7 +20,8 @@
     document.documentElement.style.setProperty('--hk-bamboo-image', 'url("' + backgroundURL + '")');
   } catch (_) { /* The static bamboo-colored theme remains readable. */ }
   let home = null, intro = null, grid = null, room = null, roomKey = "", homeCleanup = [], introCleanup = null, gridCleanup = null, roomCleanup = null, town = null, townKey = "", townCleanup = null, merchant = null, merchantCleanup = null, pending = 0;
-  let townList = null, townListCleanup = null;
+  let townList = null, townListKey = '', townListCleanup = null;
+  let regionHeading = null, regionHeadingKey = '', regionHeadingCleanup = null;
   function cleanHome() { homeCleanup.slice().reverse().forEach(function (fn) { try { fn(); } catch (_) {} }); homeCleanup = []; home = null; }
   function reconcile() {
     pending = 0;
@@ -51,9 +52,20 @@
     if (room && FX.applyTodayPlannerDraft) FX.applyTodayPlannerDraft(room);
     const nextTown = document.querySelector('.town-page');
     const nextTownList = document.querySelector('.town-list');
-    if (nextTownList !== townList) {
+    const nextRegionHeadingKey = location.hash.split('?')[0];
+    const nextRegionHeading = /^#\/visit\/jiangnan\/?$/.test(nextRegionHeadingKey) && nextTownList
+      ? nextTownList.parentElement.querySelector(':scope > .flow-intro') : null;
+    if (regionHeading !== nextRegionHeading || regionHeadingKey !== nextRegionHeadingKey) {
+      if (regionHeadingCleanup) regionHeadingCleanup();
+      regionHeading = nextRegionHeading; regionHeadingKey = nextRegionHeadingKey; regionHeadingCleanup = null;
+      if (regionHeading && FX.mountRegionHeading) {
+        regionHeadingCleanup = FX.mountRegionHeading(regionHeading, data.regionHeadingPhotography && data.regionHeadingPhotography.jiangnan);
+      }
+    }
+    const nextTownListKey = nextTownList ? nextRegionHeadingKey : '';
+    if (nextTownList !== townList || townListKey !== nextTownListKey) {
       if (townListCleanup) townListCleanup();
-      townList = nextTownList; townListCleanup = null;
+      townList = nextTownList; townListKey = nextTownListKey; townListCleanup = null;
       if (townList && FX.mountTownSelection) townListCleanup = FX.mountTownSelection(townList, data.townPhotography);
     }
     const nextTownKey = nextTown ? location.hash : '';
@@ -88,6 +100,7 @@
     if (event.persisted) return;
     observer.disconnect(); cancelAnimationFrame(pending); cleanHome();
     if (townListCleanup) townListCleanup();
+    if (regionHeadingCleanup) regionHeadingCleanup();
     if (introCleanup) introCleanup(); if (gridCleanup) gridCleanup(); if (roomCleanup) roomCleanup(); if (townCleanup) townCleanup(); if (merchantCleanup) merchantCleanup();
     if (backgroundURL) URL.revokeObjectURL(backgroundURL);
   });

@@ -13,7 +13,16 @@
     background.appendChild(image);
     intro.prepend(background);
     intro.setAttribute('data-hk-region-heading', 'jiangnan');
+    // Bleed only the photograph to the viewport; leave the content grid in place.
+    function measureBackground() {
+      if (!intro.isConnected) return;
+      background.style.left = (-intro.getBoundingClientRect().left).toFixed(3) + 'px';
+      background.style.width = document.documentElement.clientWidth + 'px';
+    }
+    measureBackground();
+    window.addEventListener('resize', measureBackground, {passive: true});
     return function () {
+      window.removeEventListener('resize', measureBackground);
       background.remove();
       intro.removeAttribute('data-hk-region-heading');
     };

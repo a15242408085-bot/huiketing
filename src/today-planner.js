@@ -135,18 +135,22 @@
     var left = node('div', 'hk-today-planner__conditions');
     var right = node('div', 'hk-today-planner__choices');
     var eyebrow = node('p', 'hk-today-planner__eyebrow', '从你的今天开始');
-    var title = node('h2', 'hk-today-planner__title', '今天，想怎么过？'); title.id = uid + '-title';
+    var title = node('h2', 'hk-today-planner__title'); title.id = uid + '-title';
+    title.append(node('span', 'hk-today-planner__title-line', '今天，'), node('span', 'hk-today-planner__title-line', '想怎么过？'));
     left.append(eyebrow, title, node('p', 'hk-today-planner__intro', '看看天，也照顾一下你现在的需要。'));
 
     var weather = node('div', 'hk-today-planner__weather');
+    var weatherSymbol = node('div', 'hk-today-planner__weather-symbol'); weatherSymbol.append(icon('rain'));
+    var weatherCopy = node('div', 'hk-today-planner__weather-copy');
     var weatherHead = node('div', 'hk-today-planner__weather-head');
     weatherHead.append(node('span', '', town.name), node('span', 'hk-today-planner__demo', '天气示例，非实时'));
     var weatherMain = node('div', 'hk-today-planner__weather-main');
-    weatherMain.append(icon('rain'), node('strong', '', '12℃'), node('span', '', '小雨'));
-    weather.append(weatherHead, weatherMain, node('p', '', '只演示天气如何帮助提问，不代表当地当前天气。'));
+    weatherMain.append(node('strong', '', '12℃'), node('span', '', '小雨'));
+    weatherCopy.append(weatherMain, weatherHead, node('p', 'hk-today-planner__weather-note', '天气仅为示例，不代表当地当前天气。'));
     var weatherLabel = node('label', 'hk-today-planner__weather-switch');
     var weatherInput = node('input'); weatherInput.type = 'checkbox'; weatherInput.dataset.field = 'rain';
-    weatherLabel.append(weatherInput, node('span', '', '用小雨示例试排')); weather.append(weatherLabel); left.append(weather);
+    weatherLabel.append(weatherInput, node('span', '', '用小雨示例试排')); weatherCopy.append(weatherLabel);
+    weather.append(weatherSymbol, weatherCopy); left.append(weather);
 
     function fieldset(legendText, key, choices) {
       var field = node('fieldset', 'hk-today-planner__field');
@@ -158,9 +162,9 @@
       });
       field.append(options); return field;
     }
-    left.append(fieldset('现在更想做什么？', 'need', NEEDS), fieldset('大概有多少时间？', 'time', TIMES));
+    left.append(fieldset('你现在更想？', 'need', NEEDS), fieldset('有多久？', 'time', TIMES));
     var extras = node('details', 'hk-today-planner__extras');
-    var summary = node('summary', '', '补充同行、预算、忌口与行李'); extras.append(summary);
+    var summary = node('summary', '', '再补充一点：同行 / 预算 / 忌口 / 行李'); extras.append(summary);
     var extraFields = node('div', 'hk-today-planner__extra-fields');
     function extraField(labelText, key, options, placeholder) {
       var label = node('label', 'hk-today-planner__extra-field');
@@ -189,9 +193,9 @@
     var choicesHead = node('div', 'hk-today-planner__choices-head');
     var choicesTitles = node('div');
     var choicesTitle = node('h3', '', '先看看这六种处境');
-    choicesTitles.append(choicesTitle, node('p', '', '选一个问题，再选一家你想问的店。'));
+    var choicesIntro = node('p', '', '选一个问题，再选一家你想问的店。');
+    choicesTitles.append(choicesTitle, choicesIntro);
     choicesHead.append(choicesTitles);
-    if (originalScenarios) choicesHead.append(button('hk-today-planner__text-button', '查看全部处境 ↗', 'all'));
     right.append(choicesHead);
     var listStatus = node('p', 'hk-today-planner__list-status'); listStatus.setAttribute('role', 'status'); listStatus.setAttribute('aria-live', 'polite');
     right.append(listStatus);
@@ -207,12 +211,16 @@
       cardCopy.append(node('strong', 'hk-today-card__title', card.title), node('span', 'hk-today-card__question', '“' + card.question + '”'));
       cardBody.append(icon(card.id), cardCopy);
       var reason = node('span', 'hk-today-card__reason');
-      cardEl.append(cardTop, cardBody, reason);
+      var arrow = node('span', 'hk-today-card__arrow', '→'); arrow.setAttribute('aria-hidden', 'true');
+      cardEl.append(cardTop, cardBody, reason, arrow);
       var local = scenarios.filter(function (scenario) { return card.match.test(string(scenario.label) + ' ' + string(scenario.description)); });
       cardNodes[card.id] = { card: card, el: cardEl, badge: cardBadge, reason: reason, scenarios: local, order: index };
       grid.append(cardEl);
     });
-    right.append(grid, node('p', 'hk-today-planner__under-grid', '条件随时可改；没有对应资料的处境也会保留，方便你直接提问。'));
+    var browseRow = node('div', 'hk-today-planner__browse-row');
+    if (originalScenarios) browseRow.append(button('hk-today-planner__text-button', '查看全部处境 →', 'all'));
+    browseRow.append(node('p', 'hk-today-planner__under-grid', '条件随时可改，不影响直接提问。'));
+    right.append(grid, browseRow);
 
     var draftBox = node('div', 'hk-today-planner__draft');
     var draftHead = node('div', 'hk-today-planner__draft-head');
@@ -232,7 +240,8 @@
     var ask = button('hk-today-planner__ask', '编辑后提问 →', 'ask'); ask.disabled = true;
     draftActions.append(shopLabel, ask);
     var draftStatus = node('p', 'hk-today-planner__draft-status', '先选店，再将问题带入原来的聊天输入框。'); draftStatus.setAttribute('role', 'status'); draftStatus.setAttribute('aria-live', 'polite');
-    draftBox.append(draftHead, textarea, draftNote, draftActions, draftStatus); right.append(draftBox);
+    var draftLayout = node('div', 'hk-today-planner__draft-layout'); draftLayout.append(textarea, draftActions);
+    draftBox.append(draftHead, draftLayout, draftNote, draftStatus); right.append(draftBox);
     root.append(left, right);
     var foot = node('p', 'hk-today-planner__foot', '天气只提供环境参考；营业、座位与供应仍以店主资料和当天说明为准。'); root.append(foot);
     if (originalScenarios) originalScenarios.before(root); else townPage.append(root);
@@ -287,15 +296,21 @@
       var ranking = Object.keys(cardNodes).map(function (id) { return cardRanking(cardNodes[id]); });
       ranking.sort(function (a, b) { return b.score - a.score || a.entry.order - b.entry.order; });
       var related = ranking.filter(function (item) { return item.score > 0; }).slice(0, 2);
-      ranking.forEach(function (item) {
+      ranking.forEach(function (item, rankIndex) {
         var entry = item.entry; var highlighted = related.indexOf(item) !== -1;
+        entry.el.dataset.featured = String(rankIndex < 2);
+        entry.el.dataset.related = String(highlighted);
+        entry.el.dataset.coverage = entry.scenarios.length ? 'known' : 'missing';
         entry.badge.hidden = !highlighted;
         entry.el.setAttribute('aria-pressed', String(state.selected === entry.card.id));
         var coverage = entry.scenarios.length ? '可从本镇已有处境继续向店主确认。' : entry.card.empty;
-        entry.reason.textContent = (item.reason ? '排序依据：' + item.reason + '。' : '') + coverage;
+        entry.reason.textContent = item.reason
+          ? '排序依据：' + item.reason + '。' + (entry.scenarios.length ? '' : entry.card.empty)
+          : coverage;
         grid.append(entry.el);
       });
-      choicesTitle.textContent = related.length ? '先看看与你有关的处境' : '先看看这六种处境';
+      choicesTitle.textContent = related.length === 2 ? '先看看这两种安排' : related.length === 1 ? '先看看这一种安排' : '先看看这六种处境';
+      choicesIntro.textContent = related.length ? '按你的选择调整顺序，仍可查看全部处境。' : '选一个问题，再选一家你想问的店。';
       listStatus.textContent = related.length ? '仅调整展示顺序，全部六种处境都保留；标记与店铺营业情况无关。' : '暂未设置条件，先保留原顺序。选哪一家、问哪一句，都由你决定。';
       if (state.selected && !state.dirty) textarea.value = buildDraft();
       updateActions();

@@ -207,3 +207,107 @@
 @media print {
   .hk-today-planner { display: none !important; }
 }
+
+/* Paper overview: visual hierarchy follows the supplied two-column reference. */
+@media screen {
+  .hk-today-planner {
+    --today-selection: #a53e32;
+    grid-template-columns: minmax(0, 31%) minmax(0, 69%);
+    column-gap: 0;
+    padding: 30px 0 22px;
+    font-size: 15px;
+  }
+  .hk-today-planner__conditions { padding-right: 28px; }
+  .hk-today-planner__choices { padding-left: 28px; border-left: 1px solid var(--today-line); }
+  .hk-today-planner__eyebrow { color: #a53e32; font-size: 14px; letter-spacing: .12em; }
+  .hk-today-planner .hk-today-planner__title { margin-top: 18px; font-size: clamp(42px, 5vw, 72px); line-height: 1.14; letter-spacing: -.045em; }
+  .hk-today-planner__title-line { display: block; }
+  .hk-today-planner .hk-today-planner__intro { margin-top: 15px; font-size: 16px; line-height: 1.75; }
+  .hk-today-planner__weather { display: grid; grid-template-columns: 48px minmax(0, 1fr); align-items: center; gap: 14px; padding: 14px; margin-top: 22px; }
+  .hk-today-planner__weather-symbol { display: flex; align-items: center; min-height: 72px; border-right: 1px solid var(--today-line); }
+  .hk-today-planner__weather-symbol svg { width: 34px; height: 34px; }
+  .hk-today-planner__weather-copy { min-width: 0; }
+  .hk-today-planner__weather-main { margin: 0 0 9px; gap: 12px; }
+  .hk-today-planner__weather-main strong { font-family: var(--mono, monospace); font-size: 30px; }
+  .hk-today-planner__weather-main > span { font-size: 16px; }
+  .hk-today-planner__weather-head { justify-content: flex-start; gap: 3px 8px; font-size: 12px; }
+  .hk-today-planner__weather-copy > .hk-today-planner__weather-note { margin-top: 5px; color: var(--today-muted); font-size: 11px; }
+  .hk-today-planner__weather-switch { min-height: 44px; margin-top: 4px; font-size: 12px; }
+  .hk-today-planner__field { margin-top: 24px !important; }
+  .hk-today-planner__field legend { margin-bottom: 10px; font-size: 17px; font-weight: 500; }
+  .hk-today-planner .hk-today-planner__option { min-height: 46px; padding: 10px 3px; font-size: 14px !important; }
+  .hk-today-planner__option[aria-pressed="true"] { border-color: #a53e32; color: #a53e32; background: #fffdf9; }
+  .hk-today-planner__option[aria-pressed="true"]::before { display: inline; position: static; margin-right: 4px; font-size: 14px; }
+  .hk-today-planner__extras { margin-top: 25px; }
+  .hk-today-planner__extras > summary { font-size: 13px; line-height: 1.8; }
+  .hk-today-planner__left-actions { align-items: center; gap: 4px 16px; }
+  .hk-today-planner .hk-today-planner__text-button { font-size: 13px !important; }
+  .hk-today-planner__choices-head { min-height: 0; margin-bottom: 18px; }
+  .hk-today-planner__choices-head h3 { font-size: clamp(23px, 2.1vw, 30px); }
+  .hk-today-planner__choices-head p { margin-top: 7px; font-size: 14px; }
+  .hk-today-planner .hk-today-planner__list-status { position: absolute; width: 1px; height: 1px; min-height: 0; overflow: hidden; clip-path: inset(50%); }
+  .hk-today-planner__grid { gap: 16px; }
+  .hk-today-planner .hk-today-card { position: relative; min-height: 136px; padding: 18px 20px; gap: 10px; background: #fff; }
+  .hk-today-planner .hk-today-card[data-featured="true"] { min-height: 204px; }
+  .hk-today-card__top { min-height: 0; display: block; padding-right: 24px; }
+  .hk-today-card__index, .hk-today-card__body > svg { display: none; }
+  .hk-today-card__badge { display: inline-block; padding: 2px 8px; font-size: 12px; line-height: 1.7; }
+  .hk-today-card__body { display: block; padding-right: 16px; }
+  .hk-today-card__copy { gap: 9px; }
+  .hk-today-card__title { font-size: clamp(19px, 1.7vw, 25px); line-height: 1.4; }
+  .hk-today-card__question { font-size: 14px; line-height: 1.75; }
+  .hk-today-card__arrow { position: absolute; top: 16px; right: 16px; font-size: 27px; line-height: 1; font-family: var(--sans, sans-serif); color: #6a7770; }
+  .hk-today-card__reason { display: none; font-size: 12px; line-height: 1.65; }
+  .hk-today-card[data-featured="true"] .hk-today-card__reason,
+  .hk-today-card[data-coverage="missing"] .hk-today-card__reason { display: block; }
+  .hk-today-card[aria-pressed="true"] { box-shadow: inset 3px 0 0 #a53e32; }
+  .hk-today-card[aria-pressed="true"] .hk-today-card__arrow { visibility: hidden; }
+  .hk-today-card[aria-pressed="true"]::after { content: '已选择'; position: absolute; top: 16px; right: 14px; color: #a53e32; background: #fff; padding-left: 5px; font-size: 11px; }
+  .hk-today-planner__browse-row { display: flex; justify-content: space-between; align-items: center; gap: 10px 18px; margin-top: 10px; }
+  .hk-today-planner .hk-today-planner__under-grid { margin: 0; font-size: 12px; text-align: right; }
+  .hk-today-planner__draft { margin-top: 18px; padding: 15px 17px; }
+  .hk-today-planner__draft-head > label { font-size: 20px; }
+  .hk-today-planner__draft-layout { display: grid; grid-template-columns: minmax(0, 1fr) 180px; align-items: stretch; gap: 14px; margin-top: 10px; }
+  .hk-today-planner .hk-today-planner__draft-input { margin: 0; min-height: 118px; padding: 11px; font-size: 15px; line-height: 1.65; }
+  .hk-today-planner__draft-actions { display: flex; flex-direction: column; align-items: stretch; gap: 8px; margin: 0; }
+  .hk-today-planner__shop { gap: 4px; font-size: 12px; }
+  .hk-today-planner__ask { min-height: 44px; padding: 8px 10px; font-size: 15px !important; }
+  .hk-today-planner .hk-today-planner__draft-note,
+  .hk-today-planner .hk-today-planner__draft-status { margin-top: 8px; font-size: 11px; line-height: 1.5; }
+  .hk-today-planner .hk-today-planner__foot { font-size: 12px; }
+}
+@media screen and (max-width: 1100px) and (min-width: 901px) {
+  .hk-today-planner__conditions { padding-right: 20px; }
+  .hk-today-planner__choices { padding-left: 20px; }
+  .hk-today-planner .hk-today-planner__option { font-size: 12px !important; }
+  .hk-today-planner .hk-today-card { padding: 15px; }
+  .hk-today-card__title { font-size: 20px; }
+  .hk-today-card__question { font-size: 13px; }
+  .hk-today-planner__draft-layout { grid-template-columns: minmax(0, 1fr) 150px; }
+}
+@media screen and (max-width: 900px) {
+  .hk-today-planner { grid-template-columns: minmax(0, 1fr); row-gap: 30px; }
+  .hk-today-planner__conditions { display: block; padding-right: 0; }
+  .hk-today-planner__choices { padding: 26px 0 0; border-left: 0; border-top: 1px solid var(--today-line); }
+  .hk-today-planner .hk-today-planner__title { font-size: clamp(42px, 7vw, 64px); }
+  .hk-today-planner__weather { max-width: 520px; }
+  .hk-today-planner__field { max-width: 520px; }
+  .hk-today-planner .hk-today-card { padding: 18px; }
+}
+@media screen and (max-width: 540px) {
+  .hk-today-planner { padding-top: 24px; }
+  .hk-today-planner .hk-today-planner__title { font-size: clamp(42px, 12vw, 52px); }
+  .hk-today-planner .hk-today-planner__intro { font-size: 15px; }
+  .hk-today-planner .hk-today-planner__option { font-size: 13px !important; }
+  .hk-today-planner__grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .hk-today-planner .hk-today-card { min-height: 132px; }
+  .hk-today-planner .hk-today-card[data-featured="true"] { min-height: 184px; }
+  .hk-today-card__title { font-size: 21px; }
+  .hk-today-card__question { font-size: 14px; }
+  .hk-today-planner__browse-row { align-items: flex-start; flex-direction: column; gap: 0; }
+  .hk-today-planner .hk-today-planner__under-grid { text-align: left; }
+  .hk-today-planner__draft-layout { grid-template-columns: minmax(0, 1fr); }
+  .hk-today-planner .hk-today-planner__draft-input { font-size: 16px; min-height: 110px; }
+  .hk-today-planner .hk-today-planner__shop select { font-size: 16px; }
+  .hk-today-planner__ask { width: 100%; }
+}

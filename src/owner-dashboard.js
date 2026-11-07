@@ -161,14 +161,15 @@
       var period = add(header, 'p', 'hk-owner-period'); add(period, 'span', '', data.period); add(period, 'strong', '', 'Demo 统计示例');
       var summary = add(section, 'section', 'hk-owner-summary'); summary.setAttribute('aria-label', '本期接待摘要'); add(summary, 'h2', '', '本期接待摘要');
       [[data.conversations, '对话次数'], [data.cards, '到店卡生成'], [data.unresolved, '未解决资料缺口']].forEach(function (item) { var metric = add(summary, 'div', 'hk-owner-summary__metric'); add(metric, 'strong', '', item[0] == null ? '—' : item[0]); add(metric, 'span', '', item[1]); });
-      add(section, 'p', 'hk-owner-stat-note', '沿用当前店铺的 Demo 源字段；到店卡生成不等于实际到店。待补列表与本机保存状态独立核对。');
+      add(summary, 'p', 'hk-owner-stat-note', '到店卡生成不等于实际到店。待补列表与本机保存状态独立核对。');
       var grid = add(section, 'div', 'hk-owner-grid');
 
       var themes = panel(grid, 'hk-owner-topics', '游客反复关心什么', '主题出现次数，同一问题可涉及多个主题。以下沿用当前店铺的 Demo 主题。');
       if (data.topics.length) {
         var max = Math.max.apply(Math, data.topics.map(function (item) { return item.count; }).concat([1]));
         var step = max <= 5 ? 1 : max <= 20 ? 5 : 10; var scale = Math.ceil(max / step) * step;
-        var axis = add(themes, 'div', 'hk-owner-axis'); axis.setAttribute('aria-hidden', 'true'); [0, scale / 2, scale].forEach(function (value) { add(axis, 'span', '', value); });
+        var axis = add(themes, 'div', 'hk-owner-axis'); axis.setAttribute('aria-hidden', 'true');
+        for (var tick = 0; tick <= scale; tick += step) add(axis, 'span', '', tick);
         var list = add(themes, 'ol', 'hk-owner-topic-list');
         data.topics.forEach(function (item) {
           var row = add(list, 'li', 'hk-owner-topic-row'); var top = add(row, 'div', 'hk-owner-topic-row__heading'); add(top, 'h3', '', item.label); add(top, 'span', 'hk-owner-count', item.count + ' 次');
@@ -217,6 +218,12 @@
       if (data.seeds.length) data.seeds.slice(0, 2).forEach(function (seed, index) { var item = add(content, 'article', 'hk-owner-seed'); add(item, 'span', 'hk-owner-caption', seed.type); add(item, 'h3', '', seed.title); add(item, 'p', '', '来源主题 · ' + (seed.sources.join('、') || '原内容素材')); var open = button(item, '查看这条素材 →', 'seed', 'hk-owner-button--text'); open.setAttribute('data-hk-seed-index', String(index)); });
       else add(content, 'p', 'hk-owner-empty', '当前店铺暂无内容素材。');
       button(content, '进入原有内容工坊 →', 'content');
+
+      // Two reading columns share the same live data and original action delegates.
+      var mainColumn = add(grid, 'div', 'hk-owner-main-column');
+      var sideColumn = add(grid, 'div', 'hk-owner-side-column');
+      mainColumn.append(summary, themes, coverage, feedback);
+      sideColumn.append(priorities, updates, content);
 
       var foot = add(section, 'footer', 'hk-owner-dashboard__footer');
       add(foot, 'p', '', '统计说明：对话次数不等于消息数或独立游客数；未解决项为资料问题项数。' + (data.helpfulRate == null ? '' : '原有帮助率 ' + data.helpfulRate + '% 保留在原统计详情，样本量与分母口径待核对。'));

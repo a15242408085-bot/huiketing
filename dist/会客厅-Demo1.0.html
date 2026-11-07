@@ -1078,6 +1078,110 @@ window.__DEEPSEEK_MODEL__="deepseek-flash";</script>
   .hk-today-planner { display: none !important; }
 }
 
+/* Paper overview: visual hierarchy follows the supplied two-column reference. */
+@media screen {
+  .hk-today-planner {
+    --today-selection: #a53e32;
+    grid-template-columns: minmax(0, 31%) minmax(0, 69%);
+    column-gap: 0;
+    padding: 30px 0 22px;
+    font-size: 15px;
+  }
+  .hk-today-planner__conditions { padding-right: 28px; }
+  .hk-today-planner__choices { padding-left: 28px; border-left: 1px solid var(--today-line); }
+  .hk-today-planner__eyebrow { color: #a53e32; font-size: 14px; letter-spacing: .12em; }
+  .hk-today-planner .hk-today-planner__title { margin-top: 18px; font-size: clamp(42px, 5vw, 72px); line-height: 1.14; letter-spacing: -.045em; }
+  .hk-today-planner__title-line { display: block; }
+  .hk-today-planner .hk-today-planner__intro { margin-top: 15px; font-size: 16px; line-height: 1.75; }
+  .hk-today-planner__weather { display: grid; grid-template-columns: 48px minmax(0, 1fr); align-items: center; gap: 14px; padding: 14px; margin-top: 22px; }
+  .hk-today-planner__weather-symbol { display: flex; align-items: center; min-height: 72px; border-right: 1px solid var(--today-line); }
+  .hk-today-planner__weather-symbol svg { width: 34px; height: 34px; }
+  .hk-today-planner__weather-copy { min-width: 0; }
+  .hk-today-planner__weather-main { margin: 0 0 9px; gap: 12px; }
+  .hk-today-planner__weather-main strong { font-family: var(--mono, monospace); font-size: 30px; }
+  .hk-today-planner__weather-main > span { font-size: 16px; }
+  .hk-today-planner__weather-head { justify-content: flex-start; gap: 3px 8px; font-size: 12px; }
+  .hk-today-planner__weather-copy > .hk-today-planner__weather-note { margin-top: 5px; color: var(--today-muted); font-size: 11px; }
+  .hk-today-planner__weather-switch { min-height: 44px; margin-top: 4px; font-size: 12px; }
+  .hk-today-planner__field { margin-top: 24px !important; }
+  .hk-today-planner__field legend { margin-bottom: 10px; font-size: 17px; font-weight: 500; }
+  .hk-today-planner .hk-today-planner__option { min-height: 46px; padding: 10px 3px; font-size: 14px !important; }
+  .hk-today-planner__option[aria-pressed="true"] { border-color: #a53e32; color: #a53e32; background: #fffdf9; }
+  .hk-today-planner__option[aria-pressed="true"]::before { display: inline; position: static; margin-right: 4px; font-size: 14px; }
+  .hk-today-planner__extras { margin-top: 25px; }
+  .hk-today-planner__extras > summary { font-size: 13px; line-height: 1.8; }
+  .hk-today-planner__left-actions { align-items: center; gap: 4px 16px; }
+  .hk-today-planner .hk-today-planner__text-button { font-size: 13px !important; }
+  .hk-today-planner__choices-head { min-height: 0; margin-bottom: 18px; }
+  .hk-today-planner__choices-head h3 { font-size: clamp(23px, 2.1vw, 30px); }
+  .hk-today-planner__choices-head p { margin-top: 7px; font-size: 14px; }
+  .hk-today-planner .hk-today-planner__list-status { position: absolute; width: 1px; height: 1px; min-height: 0; overflow: hidden; clip-path: inset(50%); }
+  .hk-today-planner__grid { gap: 16px; }
+  .hk-today-planner .hk-today-card { position: relative; min-height: 136px; padding: 18px 20px; gap: 10px; background: #fff; }
+  .hk-today-planner .hk-today-card[data-featured="true"] { min-height: 204px; }
+  .hk-today-card__top { min-height: 0; display: block; padding-right: 24px; }
+  .hk-today-card__index, .hk-today-card__body > svg { display: none; }
+  .hk-today-card__badge { display: inline-block; padding: 2px 8px; font-size: 12px; line-height: 1.7; }
+  .hk-today-card__body { display: block; padding-right: 16px; }
+  .hk-today-card__copy { gap: 9px; }
+  .hk-today-card__title { font-size: clamp(19px, 1.7vw, 25px); line-height: 1.4; }
+  .hk-today-card__question { font-size: 14px; line-height: 1.75; }
+  .hk-today-card__arrow { position: absolute; top: 16px; right: 16px; font-size: 27px; line-height: 1; font-family: var(--sans, sans-serif); color: #6a7770; }
+  .hk-today-card__reason { display: none; font-size: 12px; line-height: 1.65; }
+  .hk-today-card[data-featured="true"] .hk-today-card__reason,
+  .hk-today-card[data-coverage="missing"] .hk-today-card__reason { display: block; }
+  .hk-today-card[aria-pressed="true"] { box-shadow: inset 3px 0 0 #a53e32; }
+  .hk-today-card[aria-pressed="true"] .hk-today-card__arrow { visibility: hidden; }
+  .hk-today-card[aria-pressed="true"]::after { content: '已选择'; position: absolute; top: 16px; right: 14px; color: #a53e32; background: #fff; padding-left: 5px; font-size: 11px; }
+  .hk-today-planner__browse-row { display: flex; justify-content: space-between; align-items: center; gap: 10px 18px; margin-top: 10px; }
+  .hk-today-planner .hk-today-planner__under-grid { margin: 0; font-size: 12px; text-align: right; }
+  .hk-today-planner__draft { margin-top: 18px; padding: 15px 17px; }
+  .hk-today-planner__draft-head > label { font-size: 20px; }
+  .hk-today-planner__draft-layout { display: grid; grid-template-columns: minmax(0, 1fr) 180px; align-items: stretch; gap: 14px; margin-top: 10px; }
+  .hk-today-planner .hk-today-planner__draft-input { margin: 0; min-height: 118px; padding: 11px; font-size: 15px; line-height: 1.65; }
+  .hk-today-planner__draft-actions { display: flex; flex-direction: column; align-items: stretch; gap: 8px; margin: 0; }
+  .hk-today-planner__shop { gap: 4px; font-size: 12px; }
+  .hk-today-planner__ask { min-height: 44px; padding: 8px 10px; font-size: 15px !important; }
+  .hk-today-planner .hk-today-planner__draft-note,
+  .hk-today-planner .hk-today-planner__draft-status { margin-top: 8px; font-size: 11px; line-height: 1.5; }
+  .hk-today-planner .hk-today-planner__foot { font-size: 12px; }
+}
+@media screen and (max-width: 1100px) and (min-width: 901px) {
+  .hk-today-planner__conditions { padding-right: 20px; }
+  .hk-today-planner__choices { padding-left: 20px; }
+  .hk-today-planner .hk-today-planner__option { font-size: 12px !important; }
+  .hk-today-planner .hk-today-card { padding: 15px; }
+  .hk-today-card__title { font-size: 20px; }
+  .hk-today-card__question { font-size: 13px; }
+  .hk-today-planner__draft-layout { grid-template-columns: minmax(0, 1fr) 150px; }
+}
+@media screen and (max-width: 900px) {
+  .hk-today-planner { grid-template-columns: minmax(0, 1fr); row-gap: 30px; }
+  .hk-today-planner__conditions { display: block; padding-right: 0; }
+  .hk-today-planner__choices { padding: 26px 0 0; border-left: 0; border-top: 1px solid var(--today-line); }
+  .hk-today-planner .hk-today-planner__title { font-size: clamp(42px, 7vw, 64px); }
+  .hk-today-planner__weather { max-width: 520px; }
+  .hk-today-planner__field { max-width: 520px; }
+  .hk-today-planner .hk-today-card { padding: 18px; }
+}
+@media screen and (max-width: 540px) {
+  .hk-today-planner { padding-top: 24px; }
+  .hk-today-planner .hk-today-planner__title { font-size: clamp(42px, 12vw, 52px); }
+  .hk-today-planner .hk-today-planner__intro { font-size: 15px; }
+  .hk-today-planner .hk-today-planner__option { font-size: 13px !important; }
+  .hk-today-planner__grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .hk-today-planner .hk-today-card { min-height: 132px; }
+  .hk-today-planner .hk-today-card[data-featured="true"] { min-height: 184px; }
+  .hk-today-card__title { font-size: 21px; }
+  .hk-today-card__question { font-size: 14px; }
+  .hk-today-planner__browse-row { align-items: flex-start; flex-direction: column; gap: 0; }
+  .hk-today-planner .hk-today-planner__under-grid { text-align: left; }
+  .hk-today-planner__draft-layout { grid-template-columns: minmax(0, 1fr); }
+  .hk-today-planner .hk-today-planner__draft-input { font-size: 16px; min-height: 110px; }
+  .hk-today-planner .hk-today-planner__shop select { font-size: 16px; }
+  .hk-today-planner__ask { width: 100%; }
+}
+
 
 /* New owner overview, scoped to the existing merchant workbench. */
 @media screen {
@@ -1247,6 +1351,115 @@ window.__DEEPSEEK_MODEL__="deepseek-flash";</script>
 @media print {
   .hk-owner-dashboard,
   .hk-owner-nav-tab { display:none!important; }
+}
+
+/* Shared paper dashboard for every shop; all values remain data driven. */
+@media screen {
+  .merchant-workbench[data-hk-owner-module="ready"] .workbench-switch { display: flex; justify-content: flex-start; gap: 24px; margin-top: 12px; }
+  .merchant-workbench[data-hk-owner-module="ready"] .workbench-switch > button { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 3px; flex: 0 1 auto; min-width: 130px; min-height: 54px; padding: 10px 8px; white-space: nowrap; }
+  .merchant-workbench[data-hk-owner-module="ready"] .workbench-switch > button > svg { display: none; }
+  .merchant-workbench[data-hk-owner-module="ready"] .workbench-switch > button strong,
+  .merchant-workbench[data-hk-owner-module="ready"] .hk-owner-nav-tab > span { font-size: 16px; }
+  .merchant-workbench[data-hk-owner-module="ready"] .workbench-switch > button em,
+  .merchant-workbench[data-hk-owner-module="ready"] .hk-owner-nav-tab > small { font-size: 10px; }
+  .hk-owner-dashboard__header { align-items: center; gap: 18px; padding: 20px 0; }
+  .hk-owner-dashboard__header h1 { font-size: 30px; line-height: 1.3; }
+  .hk-owner-kicker { margin-bottom: 5px; font-size: 12px; }
+  .hk-owner-lede { margin-top: 7px; font-size: 13px; }
+  .hk-owner-stamp { color: #a53e32; border-color: #a53e32; outline: 1px solid #a53e32; outline-offset: -5px; width: 40px; min-height: 48px; writing-mode: vertical-rl; font-size: 18px; }
+  .hk-owner-period { font-size: 12px; }
+  .hk-owner-grid { grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+  .hk-owner-main-column { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; min-width: 0; }
+  .hk-owner-side-column { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+  .hk-owner-main-column > .hk-owner-panel,
+  .hk-owner-side-column > .hk-owner-panel { grid-column: auto; grid-row: auto; width: 100%; box-sizing: border-box; }
+  .hk-owner-main-column > .hk-owner-summary,
+  .hk-owner-main-column > .hk-owner-topics { grid-column: 1 / -1; }
+  .hk-owner-summary { padding: 22px; column-gap: 12px; row-gap: 14px; grid-template-columns: minmax(120px, 1.1fr) repeat(3, minmax(0, 1fr)); }
+  .hk-owner-summary h2 { font-size: 23px; line-height: 1.4; }
+  .hk-owner-summary__metric strong { font-family: var(--serif, serif); font-size: 42px; color: #123d43; }
+  .hk-owner-summary__metric span { font-size: 14px; }
+  .hk-owner-summary > .hk-owner-stat-note { grid-column: 1 / -1; margin: 0; font-size: 11px; text-align: right; line-height: 1.6; }
+  .hk-owner-panel { padding: 20px; border-radius: 0; box-shadow: none; }
+  .hk-owner-panel__header { margin-bottom: 14px; gap: 6px 16px; }
+  .hk-owner-panel h2 { font-size: clamp(21px, 1.85vw, 28px); line-height: 1.4; }
+  .hk-owner-panel__header > p { font-size: 12px; line-height: 1.65; }
+  .hk-owner-panel h3 { font-size: 17px; line-height: 1.5; font-family: var(--serif, serif); }
+  .hk-owner-axis { margin-left: 30%; margin-right: 42px; font-size: 11px; }
+  .hk-owner-topic-row { display: grid; grid-template-columns: minmax(105px, .42fr) minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 14px; row-gap: 5px; min-height: 72px; padding: 12px 0; align-items: center; }
+  .hk-owner-topic-row__heading { display: contents; }
+  .hk-owner-topic-row__heading h3 { grid-column: 1; grid-row: 1; font-size: 17px; }
+  .hk-owner-topic-row .hk-owner-count { grid-column: 2; grid-row: 1 / 3; justify-self: end; align-self: center; font-size: 16px; }
+  .hk-owner-topic-track { grid-column: 2; grid-row: 1 / 3; margin-right: 42px; height: 26px; background: #f5f6f3; align-self: center; }
+  .hk-owner-topic-row > p { grid-column: 1; grid-row: 2; margin: 0; font-size: 12px; line-height: 1.65; }
+  .hk-owner-button { min-height: 44px; font-size: 14px; padding: 9px 14px; }
+  .hk-owner-priorities { border-left: 3px solid #a53e32; }
+  .hk-owner-priorities .hk-owner-panel__header > p { color: #a53e32; }
+  .hk-owner-gap { padding: 16px 0; }
+  .hk-owner-gap--first { margin: 0; padding: 16px; border: 1px solid #dca39c; background: #fdfaf8; }
+  .hk-owner-gap__meta { font-size: 12px; gap: 6px; }
+  .hk-owner-gap__state { border: 1px solid #dca39c; padding: 2px 5px; }
+  .hk-owner-gap > h3 { font-size: 20px; }
+  .hk-owner-gap > p { font-size: 14px; line-height: 1.75; }
+  .hk-owner-gap > .hk-owner-gap__count { font-size: 12px; }
+  .hk-owner-gap__actions { gap: 8px; }
+  .hk-owner-panel .hk-owner-empty { font-size: 15px; }
+  .hk-owner-panel .hk-owner-caption { font-size: 12px; line-height: 1.7; }
+  .hk-owner-coverage-legend { gap: 8px 14px; }
+  .hk-owner-coverage-legend li { gap: 5px; font-size: 12px; }
+  .hk-owner-coverage-legend strong { font-size: 12px; }
+  .hk-owner-coverage-bar { height: 20px; }
+  .hk-owner-quote { background: #f5f6f3; padding: 14px; border: 0; margin: 10px 0; }
+  .hk-owner-quote blockquote { font-size: 18px; line-height: 1.75; }
+  .hk-owner-quote figcaption { font-size: 11px; }
+  .hk-owner-update-list strong { font-size: 14px; }
+  .hk-owner-update-list :is(time,span) { font-size: 12px; }
+  .hk-owner-seed { display: block; width: 100%; margin: 0; padding: 12px 0; }
+  .hk-owner-seed h3 { font-size: 17px; }
+  .hk-owner-seed > p { margin: 7px 0; font-size: 12px; }
+  .hk-owner-seed > .hk-owner-button { min-height: 44px; padding: 5px 8px; font-size: 12px; }
+  .hk-owner-content > .hk-owner-button { width: 100%; }
+  .hk-owner-dashboard__footer { align-items: flex-start; }
+  .hk-owner-dashboard__footer p { font-size: 11px; }
+}
+@media screen and (max-width: 1100px) {
+  .hk-owner-grid { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 12px; }
+  .hk-owner-main-column { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .hk-owner-main-column > .hk-owner-panel { grid-column: 1; }
+  .hk-owner-panel { padding: 16px; }
+  .hk-owner-summary { grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 16px; }
+  .hk-owner-summary h2 { grid-column: 1 / -1; }
+  .hk-owner-summary__metric strong { font-size: 34px; }
+  .hk-owner-summary__metric span { font-size: 12px; }
+  .hk-owner-topic-row { grid-template-columns: minmax(95px, .6fr) minmax(0, 1fr); column-gap: 10px; }
+  .hk-owner-axis { margin-left: 38%; }
+  .hk-owner-topic-row__heading h3 { font-size: 15px; }
+  .hk-owner-gap > h3 { font-size: 18px; }
+}
+@media screen and (max-width: 760px) {
+  .hk-owner-grid { display: flex; flex-direction: column; gap: 12px; }
+  .hk-owner-main-column, .hk-owner-side-column { display: contents; }
+  .hk-owner-grid .hk-owner-summary { order: 0; width: 100%; box-sizing: border-box; }
+  .hk-owner-grid .hk-owner-priorities { order: 1; }
+  .hk-owner-grid .hk-owner-topics { order: 2; }
+  .hk-owner-grid .hk-owner-coverage { order: 3; }
+  .hk-owner-grid .hk-owner-feedback { order: 4; }
+  .hk-owner-grid .hk-owner-updates { order: 5; }
+  .hk-owner-grid .hk-owner-content { order: 6; }
+  .hk-owner-dashboard__header { align-items: flex-start; padding: 20px 0; }
+  .hk-owner-dashboard__header h1 { font-size: 28px; }
+  .hk-owner-lede { font-size: 13px; }
+  .merchant-workbench[data-hk-owner-module="ready"] .workbench-switch { gap: 4px; }
+  .merchant-workbench[data-hk-owner-module="ready"] .workbench-switch > button { flex: 1; min-width: 0; padding: 8px 4px; }
+  .merchant-workbench[data-hk-owner-module="ready"] .workbench-switch > button strong,
+  .merchant-workbench[data-hk-owner-module="ready"] .hk-owner-nav-tab > span { font-size: 14px; }
+  .hk-owner-summary__metric span { font-size: 11px; }
+  .hk-owner-summary > .hk-owner-stat-note { text-align: left; }
+  .hk-owner-topic-row { grid-template-columns: minmax(100px, .6fr) minmax(0, 1fr); }
+  .hk-owner-topic-track { margin-right: 33px; height: 22px; }
+  .hk-owner-topic-row .hk-owner-count { font-size: 13px; }
+  .hk-owner-axis { margin-right: 33px; }
+  .hk-owner-panel h2 { font-size: 23px; }
 }
 
 
@@ -3921,18 +4134,22 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
     var left = node('div', 'hk-today-planner__conditions');
     var right = node('div', 'hk-today-planner__choices');
     var eyebrow = node('p', 'hk-today-planner__eyebrow', '从你的今天开始');
-    var title = node('h2', 'hk-today-planner__title', '今天，想怎么过？'); title.id = uid + '-title';
+    var title = node('h2', 'hk-today-planner__title'); title.id = uid + '-title';
+    title.append(node('span', 'hk-today-planner__title-line', '今天，'), node('span', 'hk-today-planner__title-line', '想怎么过？'));
     left.append(eyebrow, title, node('p', 'hk-today-planner__intro', '看看天，也照顾一下你现在的需要。'));
 
     var weather = node('div', 'hk-today-planner__weather');
+    var weatherSymbol = node('div', 'hk-today-planner__weather-symbol'); weatherSymbol.append(icon('rain'));
+    var weatherCopy = node('div', 'hk-today-planner__weather-copy');
     var weatherHead = node('div', 'hk-today-planner__weather-head');
     weatherHead.append(node('span', '', town.name), node('span', 'hk-today-planner__demo', '天气示例，非实时'));
     var weatherMain = node('div', 'hk-today-planner__weather-main');
-    weatherMain.append(icon('rain'), node('strong', '', '12℃'), node('span', '', '小雨'));
-    weather.append(weatherHead, weatherMain, node('p', '', '只演示天气如何帮助提问，不代表当地当前天气。'));
+    weatherMain.append(node('strong', '', '12℃'), node('span', '', '小雨'));
+    weatherCopy.append(weatherMain, weatherHead, node('p', 'hk-today-planner__weather-note', '天气仅为示例，不代表当地当前天气。'));
     var weatherLabel = node('label', 'hk-today-planner__weather-switch');
     var weatherInput = node('input'); weatherInput.type = 'checkbox'; weatherInput.dataset.field = 'rain';
-    weatherLabel.append(weatherInput, node('span', '', '用小雨示例试排')); weather.append(weatherLabel); left.append(weather);
+    weatherLabel.append(weatherInput, node('span', '', '用小雨示例试排')); weatherCopy.append(weatherLabel);
+    weather.append(weatherSymbol, weatherCopy); left.append(weather);
 
     function fieldset(legendText, key, choices) {
       var field = node('fieldset', 'hk-today-planner__field');
@@ -3944,9 +4161,9 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
       });
       field.append(options); return field;
     }
-    left.append(fieldset('现在更想做什么？', 'need', NEEDS), fieldset('大概有多少时间？', 'time', TIMES));
+    left.append(fieldset('你现在更想？', 'need', NEEDS), fieldset('有多久？', 'time', TIMES));
     var extras = node('details', 'hk-today-planner__extras');
-    var summary = node('summary', '', '补充同行、预算、忌口与行李'); extras.append(summary);
+    var summary = node('summary', '', '再补充一点：同行 / 预算 / 忌口 / 行李'); extras.append(summary);
     var extraFields = node('div', 'hk-today-planner__extra-fields');
     function extraField(labelText, key, options, placeholder) {
       var label = node('label', 'hk-today-planner__extra-field');
@@ -3975,9 +4192,9 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
     var choicesHead = node('div', 'hk-today-planner__choices-head');
     var choicesTitles = node('div');
     var choicesTitle = node('h3', '', '先看看这六种处境');
-    choicesTitles.append(choicesTitle, node('p', '', '选一个问题，再选一家你想问的店。'));
+    var choicesIntro = node('p', '', '选一个问题，再选一家你想问的店。');
+    choicesTitles.append(choicesTitle, choicesIntro);
     choicesHead.append(choicesTitles);
-    if (originalScenarios) choicesHead.append(button('hk-today-planner__text-button', '查看全部处境 ↗', 'all'));
     right.append(choicesHead);
     var listStatus = node('p', 'hk-today-planner__list-status'); listStatus.setAttribute('role', 'status'); listStatus.setAttribute('aria-live', 'polite');
     right.append(listStatus);
@@ -3993,12 +4210,16 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
       cardCopy.append(node('strong', 'hk-today-card__title', card.title), node('span', 'hk-today-card__question', '“' + card.question + '”'));
       cardBody.append(icon(card.id), cardCopy);
       var reason = node('span', 'hk-today-card__reason');
-      cardEl.append(cardTop, cardBody, reason);
+      var arrow = node('span', 'hk-today-card__arrow', '→'); arrow.setAttribute('aria-hidden', 'true');
+      cardEl.append(cardTop, cardBody, reason, arrow);
       var local = scenarios.filter(function (scenario) { return card.match.test(string(scenario.label) + ' ' + string(scenario.description)); });
       cardNodes[card.id] = { card: card, el: cardEl, badge: cardBadge, reason: reason, scenarios: local, order: index };
       grid.append(cardEl);
     });
-    right.append(grid, node('p', 'hk-today-planner__under-grid', '条件随时可改；没有对应资料的处境也会保留，方便你直接提问。'));
+    var browseRow = node('div', 'hk-today-planner__browse-row');
+    if (originalScenarios) browseRow.append(button('hk-today-planner__text-button', '查看全部处境 →', 'all'));
+    browseRow.append(node('p', 'hk-today-planner__under-grid', '条件随时可改，不影响直接提问。'));
+    right.append(grid, browseRow);
 
     var draftBox = node('div', 'hk-today-planner__draft');
     var draftHead = node('div', 'hk-today-planner__draft-head');
@@ -4018,7 +4239,8 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
     var ask = button('hk-today-planner__ask', '编辑后提问 →', 'ask'); ask.disabled = true;
     draftActions.append(shopLabel, ask);
     var draftStatus = node('p', 'hk-today-planner__draft-status', '先选店，再将问题带入原来的聊天输入框。'); draftStatus.setAttribute('role', 'status'); draftStatus.setAttribute('aria-live', 'polite');
-    draftBox.append(draftHead, textarea, draftNote, draftActions, draftStatus); right.append(draftBox);
+    var draftLayout = node('div', 'hk-today-planner__draft-layout'); draftLayout.append(textarea, draftActions);
+    draftBox.append(draftHead, draftLayout, draftNote, draftStatus); right.append(draftBox);
     root.append(left, right);
     var foot = node('p', 'hk-today-planner__foot', '天气只提供环境参考；营业、座位与供应仍以店主资料和当天说明为准。'); root.append(foot);
     if (originalScenarios) originalScenarios.before(root); else townPage.append(root);
@@ -4073,15 +4295,21 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
       var ranking = Object.keys(cardNodes).map(function (id) { return cardRanking(cardNodes[id]); });
       ranking.sort(function (a, b) { return b.score - a.score || a.entry.order - b.entry.order; });
       var related = ranking.filter(function (item) { return item.score > 0; }).slice(0, 2);
-      ranking.forEach(function (item) {
+      ranking.forEach(function (item, rankIndex) {
         var entry = item.entry; var highlighted = related.indexOf(item) !== -1;
+        entry.el.dataset.featured = String(rankIndex < 2);
+        entry.el.dataset.related = String(highlighted);
+        entry.el.dataset.coverage = entry.scenarios.length ? 'known' : 'missing';
         entry.badge.hidden = !highlighted;
         entry.el.setAttribute('aria-pressed', String(state.selected === entry.card.id));
         var coverage = entry.scenarios.length ? '可从本镇已有处境继续向店主确认。' : entry.card.empty;
-        entry.reason.textContent = (item.reason ? '排序依据：' + item.reason + '。' : '') + coverage;
+        entry.reason.textContent = item.reason
+          ? '排序依据：' + item.reason + '。' + (entry.scenarios.length ? '' : entry.card.empty)
+          : coverage;
         grid.append(entry.el);
       });
-      choicesTitle.textContent = related.length ? '先看看与你有关的处境' : '先看看这六种处境';
+      choicesTitle.textContent = related.length === 2 ? '先看看这两种安排' : related.length === 1 ? '先看看这一种安排' : '先看看这六种处境';
+      choicesIntro.textContent = related.length ? '按你的选择调整顺序，仍可查看全部处境。' : '选一个问题，再选一家你想问的店。';
       listStatus.textContent = related.length ? '仅调整展示顺序，全部六种处境都保留；标记与店铺营业情况无关。' : '暂未设置条件，先保留原顺序。选哪一家、问哪一句，都由你决定。';
       if (state.selected && !state.dirty) textarea.value = buildDraft();
       updateActions();
@@ -4315,14 +4543,15 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
       var period = add(header, 'p', 'hk-owner-period'); add(period, 'span', '', data.period); add(period, 'strong', '', 'Demo 统计示例');
       var summary = add(section, 'section', 'hk-owner-summary'); summary.setAttribute('aria-label', '本期接待摘要'); add(summary, 'h2', '', '本期接待摘要');
       [[data.conversations, '对话次数'], [data.cards, '到店卡生成'], [data.unresolved, '未解决资料缺口']].forEach(function (item) { var metric = add(summary, 'div', 'hk-owner-summary__metric'); add(metric, 'strong', '', item[0] == null ? '—' : item[0]); add(metric, 'span', '', item[1]); });
-      add(section, 'p', 'hk-owner-stat-note', '沿用当前店铺的 Demo 源字段；到店卡生成不等于实际到店。待补列表与本机保存状态独立核对。');
+      add(summary, 'p', 'hk-owner-stat-note', '到店卡生成不等于实际到店。待补列表与本机保存状态独立核对。');
       var grid = add(section, 'div', 'hk-owner-grid');
 
       var themes = panel(grid, 'hk-owner-topics', '游客反复关心什么', '主题出现次数，同一问题可涉及多个主题。以下沿用当前店铺的 Demo 主题。');
       if (data.topics.length) {
         var max = Math.max.apply(Math, data.topics.map(function (item) { return item.count; }).concat([1]));
         var step = max <= 5 ? 1 : max <= 20 ? 5 : 10; var scale = Math.ceil(max / step) * step;
-        var axis = add(themes, 'div', 'hk-owner-axis'); axis.setAttribute('aria-hidden', 'true'); [0, scale / 2, scale].forEach(function (value) { add(axis, 'span', '', value); });
+        var axis = add(themes, 'div', 'hk-owner-axis'); axis.setAttribute('aria-hidden', 'true');
+        for (var tick = 0; tick <= scale; tick += step) add(axis, 'span', '', tick);
         var list = add(themes, 'ol', 'hk-owner-topic-list');
         data.topics.forEach(function (item) {
           var row = add(list, 'li', 'hk-owner-topic-row'); var top = add(row, 'div', 'hk-owner-topic-row__heading'); add(top, 'h3', '', item.label); add(top, 'span', 'hk-owner-count', item.count + ' 次');
@@ -4371,6 +4600,12 @@ Please change the parent <Route path="${e}"> to <Route path="${e===`/`?`*`:`${e}
       if (data.seeds.length) data.seeds.slice(0, 2).forEach(function (seed, index) { var item = add(content, 'article', 'hk-owner-seed'); add(item, 'span', 'hk-owner-caption', seed.type); add(item, 'h3', '', seed.title); add(item, 'p', '', '来源主题 · ' + (seed.sources.join('、') || '原内容素材')); var open = button(item, '查看这条素材 →', 'seed', 'hk-owner-button--text'); open.setAttribute('data-hk-seed-index', String(index)); });
       else add(content, 'p', 'hk-owner-empty', '当前店铺暂无内容素材。');
       button(content, '进入原有内容工坊 →', 'content');
+
+      // Two reading columns share the same live data and original action delegates.
+      var mainColumn = add(grid, 'div', 'hk-owner-main-column');
+      var sideColumn = add(grid, 'div', 'hk-owner-side-column');
+      mainColumn.append(summary, themes, coverage, feedback);
+      sideColumn.append(priorities, updates, content);
 
       var foot = add(section, 'footer', 'hk-owner-dashboard__footer');
       add(foot, 'p', '', '统计说明：对话次数不等于消息数或独立游客数；未解决项为资料问题项数。' + (data.helpfulRate == null ? '' : '原有帮助率 ' + data.helpfulRate + '% 保留在原统计详情，样本量与分母口径待核对。'));

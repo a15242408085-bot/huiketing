@@ -1,0 +1,106 @@
+/* Paint and layout only. No navigation, content, ordering or controls are removed. */
+@media screen {
+  :root {
+    --hk-town-yunxi-scene: url("__HK_UI_YUNXI_HERO__");
+    --hk-town-shiao-scene: url("__HK_UI_SHIAO_HERO__");
+  }
+  .town-page[data-hk-today-planner] .town-hero {
+    position: relative; isolation: isolate; overflow: hidden;
+    min-height: 350px; border-radius: 0; background: #173f44;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr);
+  }
+  .town-page[data-hk-today-planner] .town-hero::before {
+    content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background-image: linear-gradient(90deg, #123d43f5 0%, #123d43db 40%, #123d4399 72%, #123d4373 100%), var(--hk-town-scene, none);
+    background-size: cover; background-position: center 55%;
+  }
+  .town-page[data-hk-today-planner="yunxi"] { --hk-town-scene: var(--hk-town-yunxi-scene); }
+  .town-page[data-hk-today-planner="shiao"] { --hk-town-scene: var(--hk-town-shiao-scene); }
+  .town-page[data-hk-today-planner] .town-hero__copy { padding: clamp(30px, 3.8vw, 52px); }
+  .town-page[data-hk-today-planner] .town-hero__copy h1 { font-size: clamp(54px, 6.1vw, 88px); line-height: 1.12; margin: 16px 0 18px; letter-spacing: -.045em; }
+  .town-page[data-hk-today-planner] .town-hero__copy > p { color: #f0f3ee; font-size: 16px; line-height: 1.9; }
+  .town-page[data-hk-today-planner] .town-hero__route { font-size: 11px; line-height: 1.8; gap: 10px; margin-top: 24px; color: #dde9e1; }
+  .town-page[data-hk-today-planner] .town-hero__note { padding: clamp(25px, 3vw, 42px); background: #173f441f; border-color: #d5e2db40; }
+  .town-page[data-hk-today-planner] .town-hero__note .seal { width: 54px; height: 54px; margin-bottom: 22px; }
+  .town-page[data-hk-today-planner] .town-hero__note blockquote { margin: 16px 0; font-size: clamp(19px, 1.8vw, 25px); line-height: 1.8; }
+  .town-page[data-hk-today-planner] .town-hero__note > p { color: #dde9e1; font-size: 13px; line-height: 1.8; }
+  .town-page[data-hk-today-planner] .section-heading { margin-bottom: 26px; }
+  .town-page[data-hk-today-planner] .section-heading h2 { font-size: clamp(30px, 3.2vw, 44px); line-height: 1.35; letter-spacing: -.03em; }
+  .town-page[data-hk-today-planner] .town-shop-grid { gap: 20px; align-items: stretch; }
+  .town-page[data-hk-today-planner] .town-shop {
+    --hk-shop-padding: 24px; --hk-shop-cover-height: 172px;
+    position: relative; min-width: 0; min-height: 0; height: auto;
+    padding: var(--hk-shop-padding); border-radius: 0; background: #fff;
+    border-color: #d4dfda; overflow: hidden; box-shadow: none;
+  }
+  .town-page[data-hk-today-planner] .town-shop::before {
+    content: ''; display: block; flex-shrink: 0;
+    height: var(--hk-shop-cover-height);
+    margin: calc(-1 * var(--hk-shop-padding)) calc(-1 * var(--hk-shop-padding)) 22px;
+    background-color: #eaf0ea; background-image: var(--hk-shop-photo, none);
+    background-repeat: no-repeat;
+    background-size: auto calc(var(--hk-shop-cover-height) * var(--hk-shop-scale, 4.2));
+    background-position: calc(50% + var(--hk-shop-cover-height) * var(--hk-shop-x, .3)) calc(var(--hk-shop-cover-height) * var(--hk-shop-y, -.84));
+    pointer-events: none;
+  }
+  .town-page[data-hk-today-planner] .town-shop::after {
+    content: '空间示意 · 非实景'; position: absolute; top: 138px; right: 12px;
+    padding: 4px 7px; color: #fff; background: #173f44cc; font-size: 10px;
+    line-height: 1.6; pointer-events: none;
+  }
+  .town-page[data-hk-today-planner] .town-shop__top { padding-bottom: 14px; gap: 10px; }
+  .town-page[data-hk-today-planner] .town-shop__top > span:nth-child(2) { font-size: 12px; line-height: 1.6; }
+  .town-page[data-hk-today-planner] .town-shop > .small-caps { margin-top: 20px; font-size: 10px; letter-spacing: .12em; }
+  .town-page[data-hk-today-planner] .town-shop h3 { font-size: clamp(29px, 2.8vw, 38px); line-height: 1.3; margin: 8px 0; }
+  .town-page[data-hk-today-planner] .town-shop__tagline { font-size: 16px; line-height: 1.7; }
+  .town-page[data-hk-today-planner] .town-shop__description { font-size: 15px; line-height: 1.85; margin: 20px 0; }
+  .town-page[data-hk-today-planner] .town-shop__facts { gap: 10px; padding: 15px 0; }
+  .town-page[data-hk-today-planner] .town-shop__facts span { align-items: flex-start; font-size: 13px; line-height: 1.75; }
+  .town-page[data-hk-today-planner] .town-shop__facts svg { flex-shrink: 0; margin-top: 4px; }
+  .town-page[data-hk-today-planner] .town-shop blockquote { padding: 15px; margin: 18px 0 22px; background: #f2f5f1; }
+  .town-page[data-hk-today-planner] .town-shop blockquote p { font-size: 15px; line-height: 1.8; }
+  .town-page[data-hk-today-planner] .town-shop blockquote span { font-size: 11px; }
+  .town-page[data-hk-today-planner] .town-shop__footer > a.round-link {
+    width: 100%; min-height: 46px; height: auto; padding: 10px 16px;
+    border-radius: 0; border-color: #173f44; color: #fff; background: #173f44;
+    display: inline-flex; justify-content: space-between; align-items: center; transform: none;
+  }
+  .town-page[data-hk-today-planner] .town-shop__footer > a.round-link svg { display: none; }
+  .town-page[data-hk-today-planner] .town-shop__footer > a.round-link::after { content: '进入会客厅 →'; font: 500 15px/1.6 var(--sans, sans-serif); }
+  .town-page[data-hk-today-planner] .town-shop__footer > a.round-link:hover { background: #24565a; transform: none; }
+  .town-page[data-hk-today-planner] .town-shop__footer > a.round-link:focus-visible { outline: 2px solid #173f44; outline-offset: 4px; }
+  .town-page[data-hk-today-planner] .town-scenarios { padding-top: 30px; margin-top: 42px; }
+  .town-page[data-hk-today-planner] .town-scenarios h2 { margin: 12px 0 24px; font-size: clamp(28px, 2.8vw, 38px); line-height: 1.35; }
+  .town-page[data-hk-today-planner] .town-scenario-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; border: 0; }
+  .town-page[data-hk-today-planner] .town-scenario-list > button { min-width: 0; min-height: 144px; padding: 20px 42px 20px 20px; border: 1px solid #d8e0db; background: #f5f7f3; border-radius: 0; }
+  .town-page[data-hk-today-planner] .town-scenario-list > button > span { font-size: 21px; line-height: 1.5; }
+  .town-page[data-hk-today-planner] .town-scenario-list > button p { font-size: 13px; line-height: 1.8; }
+  .town-page[data-hk-today-planner] .town-scenario-list > button:hover { background: #173f44; color: #fff; }
+  .town-page[data-hk-today-planner] .town-scenario-list > button:hover p { color: #e2ece6; }
+}
+@media screen and (max-width: 1120px) {
+  .town-page[data-hk-today-planner] .town-shop-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .town-page[data-hk-today-planner] .town-shop:last-child { grid-column: auto; }
+  .town-page[data-hk-today-planner] .town-scenario-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media screen and (max-width: 760px) {
+  .town-page[data-hk-today-planner] .town-hero { grid-template-columns: minmax(0, 1fr); }
+  .town-page[data-hk-today-planner] .town-hero__copy { padding: 28px 24px; }
+  .town-page[data-hk-today-planner] .town-hero__copy h1 { font-size: clamp(48px, 13vw, 68px); }
+  .town-page[data-hk-today-planner] .town-hero__note { padding: 24px; border-left: 0; border-top: 1px solid #d5e2db40; }
+  .town-page[data-hk-today-planner] .town-hero__note .seal { width: 42px; height: 42px; margin-bottom: 16px; }
+  .town-page[data-hk-today-planner] .town-shop-grid { grid-template-columns: minmax(0, 1fr); }
+  .town-page[data-hk-today-planner] .town-shop { --hk-shop-padding: 20px; }
+}
+@media screen and (max-width: 540px) {
+  .town-page[data-hk-today-planner] .town-scenario-list { grid-template-columns: minmax(0, 1fr); }
+  .town-page[data-hk-today-planner] .town-scenario-list > button { min-height: 126px; }
+}
+
+@media screen {
+.town-page[data-hk-today-planner] .town-shop:has(a[href$="/qiaoxi-tea"]) { --hk-shop-photo: url("__HK_UI_SHOP_qiaoxi-tea__"); --hk-shop-scale: 4.1982507; --hk-shop-x: 0.2973761; --hk-shop-y: -0.8396501; }
+.town-page[data-hk-today-planner] .town-shop:has(a[href$="/ayuan-noodles"]) { --hk-shop-photo: url("__HK_UI_SHOP_ayuan-noodles__"); --hk-shop-scale: 4.2985075; --hk-shop-x: 0.2955224; --hk-shop-y: -0.8179104; }
+.town-page[data-hk-today-planner] .town-shop:has(a[href$="/nanzha-bamboo"]) { --hk-shop-photo: url("__HK_UI_SHOP_nanzha-bamboo__"); --hk-shop-scale: 4.1982507; --hk-shop-x: 0.2142857; --hk-shop-y: -0.8688047; }
+.town-page[data-hk-today-planner] .town-shop:has(a[href$="/banshan-tofu"]) { --hk-shop-photo: url("__HK_UI_SHOP_banshan-tofu__"); --hk-shop-scale: 4.260355; --hk-shop-x: 0.2914201; --hk-shop-y: -0.7988166; }
+.town-page[data-hk-today-planner] .town-shop:has(a[href$="/songfeng-tea"]) { --hk-shop-photo: url("__HK_UI_SHOP_songfeng-tea__"); --hk-shop-scale: 5.034965; --hk-shop-x: 0.3653846; --hk-shop-y: -0.9545455; }
+}

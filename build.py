@@ -77,9 +77,12 @@ else:
     print("Node.js is optional; JavaScript syntax checks were skipped.")
 scripts = "\n\n".join((ROOT / "src" / name).read_text(encoding="utf-8") for name in script_files)
 css_files = ["base-theme.css", "green-theme.css", "depth-cards.css",
-             "landscape-motion.css", "silk-title.css", "home-scroll.css", "bamboo-fog.css", "entry-art.css", "home-polish.css", "today-planner.css", "owner-dashboard.css", "room-editorial.css", "brand-theme.css", "town-selection.css", "region-heading.css"]
+             "landscape-motion.css", "silk-title.css", "home-scroll.css", "bamboo-fog.css", "entry-art.css", "home-polish.css", "today-planner.css", "owner-dashboard.css", "room-editorial.css", "brand-theme.css", "town-selection.css", "region-heading.css", "town-ui-polish.css"]
 main_css = "\n\n".join((ROOT / "src" / name).read_text(encoding="utf-8") for name in css_files)
 main_css = main_css.replace('url("./assets/bamboo-water-town.png")', "var(--hk-bamboo-image, none)")
+for key, path in {"YUNXI_HERO": "assets/town-yunxi-user.jpg", "SHIAO_HERO": "assets/scenic/linan-bamboo-road-unsplash.jpg", **{"SHOP_" + key: "assets/town-ui/" + key + ".jpg" for key in ["qiaoxi-tea", "ayuan-noodles", "nanzha-bamboo", "banshan-tofu", "songfeng-tea"]}}.items():
+    main_css = main_css.replace("__HK_UI_" + key + "__", data_url(ROOT / path))
+assert "__HK_UI_" not in main_css
 assert "./assets/" not in main_css
 intro_css = (ROOT / "src/intro-theme.css").read_text(encoding="utf-8") + "\n" + (
     ROOT / "src/green-theme.css").read_text(encoding="utf-8") + "\n" + (ROOT / "src/brand-theme.css").read_text(encoding="utf-8")
